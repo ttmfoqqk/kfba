@@ -1,0 +1,57 @@
+<!-- #include file = "../_skin/basic/mypage/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/mypage/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_mypage_01.jpg"></div>
+				<div class="contPageNavi">H > 마이페이지 > <b>응시정보</b></div>
+			</div>
+			
+			<h4 class="IconArrow">응시정보</h4>
+			<div id="board_wrap">
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_title" width="70">번호</td>
+						<td class="cell_title" width="150">자격종목</td>
+						<td class="cell_title" width="100">검정시행일</td>
+						<td class="cell_title">지정검정장</td>
+						<td class="cell_title" width="100">진행상황</td>
+						<td class="cell_title" width="100">신청일자</td>
+					</tr>
+					
+					<!-- BLOCK BEGIN BOARD_LOOP -->
+					<tr>
+						<td class="cell_cont"><a href="appView.asp?Idx={$Idx}">{$Number}</a></td>
+						<td class="cell_cont"><a href="appView.asp?Idx={$Idx}">{$PrograName}</a></td>
+						<td class="cell_cont"><a href="appView.asp?Idx={$Idx}">{$OnData}</a></td>
+						<td class="cell_cont"><a href="appView.asp?Idx={$Idx}">{$AreaName}</a></td>
+						<td class="cell_cont"><a href="appView.asp?Idx={$Idx}">{$State}</a></td>
+						<td class="cell_cont"><a href="appView.asp?Idx={$Idx}">{$InDate}</a></td>
+					</tr>
+					<!-- BLOCK END BOARD_LOOP -->
+
+					<!-- BLOCK BEGIN BOARD_LOOP_NODATA -->
+					<tr>
+						<td class="cell_cont" colspan=6>등록된 내용이 없습니다.</td>
+					</tr>
+					<!-- BLOCK END BOARD_LOOP_NODATA -->
+				</table>
+
+				<br><br>
+
+				<div class="page_list_area">{$pagelist}</div>
+
+
+
+			</div>
+			
+
+
+
+		</div>
+	</div>
+</div>

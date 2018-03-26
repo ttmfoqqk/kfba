@@ -1,0 +1,261 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#UserId').keyup(function(e){
+		CheckSpace_alert($(this),'id');
+		id_check( $(this).val() );
+	});
+
+	$('#UserEmail1').keyup(function(e){
+		CheckSpace_alert($(this),'email');
+	});
+	$('#UserEmail3').keyup(function(e){
+		CheckSpace_alert($(this),'email');
+	});
+
+	$('#UserPhone1').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	$('#UserPhone2').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	$('#UserPhone3').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	/*
+	$('#UserZip1').focus(function(e){
+		zipAddrSearch('UserZip1','UserZip2','UserAddr1','UserAddr2')
+	});
+	$('#UserZip2').focus(function(e){
+		zipAddrSearch('UserZip1','UserZip2','UserAddr1','UserAddr2')
+	});
+	$('#UserAddr1').focus(function(e){
+		zipAddrSearch('UserZip1','UserZip2','UserAddr1','UserAddr2')
+	});
+	*/
+
+	$('#emailWrite').click(function(){
+		changeEmailInput();
+	});
+	$('#UserEmail2').change(function(){
+		$('#UserEmail3').val( $(this).val() );
+	});
+})
+
+function changeEmailInput(){
+	if( $('#emailWrite').is(":checked") ){
+		$('#UserEmail2').hide();
+		$('#UserEmail3').show();
+	}else{
+		$('#UserEmail2').show();
+		$('#UserEmail3').hide();
+	}
+}
+
+function id_check( uid ){
+	if( CheckSpace(uid , 'id') ){
+		return false;
+	}
+	if( uid.length <= 4 ){
+		$('#idcheck').val('');
+		$('#id_span').attr('class','joinTxtBlue').html('5~12자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.');
+		return false;
+	}
+
+	$.ajax({
+		type: "POST",
+		dataType: "html",
+		url: "ajax.useridCheck.asp",
+		data : {
+			UserId : uid
+		},
+		success: function(msg){
+			if(msg > 0 ){
+				$('#idcheck').val('');
+				$('#id_span').attr('class','joinTxtPink').html('사용할 수 없는 아이디 입니다.');
+			}else{
+				$('#idcheck').val('Y');
+				$('#id_span').attr('class','joinTxtBlue').html('사용할 수 있는 아이디 입니다.');
+			}
+		},error:function(err){
+			$('#id_span').attr('class','joinTxtPink').html('서버요청 실패.');
+		}
+	});
+}
+
+function check(){
+	if( !trim( $('#UserId').val() ) ){
+		alert("아이디를 입력하세요.");return false;
+	}
+	if( $('#UserId').val().length < 5 || $('#UserId').val().length > 12){
+		alert("아이디는 5자이상 12자 미만으로 작성해주세요.");return false;
+	}
+	if( CheckSpace($('#UserId').val(),'id') ){
+		alert("아이디는 특수문자를 입력할수 없습니다.");return false;
+	}
+	if( $('#idcheck').val() != "Y" ){
+		alert("사용할 수 없는 아이디 입니다.");return false;
+	}
+	if( !trim( $('#UserPwd').val() ) ){
+		alert("비밀번호를 입력하세요.");return false;
+	}
+	if( $('#UserPwd').val().length < 6 || $('#UserPwd').val().length > 16){
+		alert("비밀번호는 6자이상 16자 미만으로 작성해주세요.");return false;
+	}
+	if( !trim( $('#UserPwdc').val() ) ){
+		alert("비밀번호확인을 입력하세요.");return false;
+	}
+	if( trim( $('#UserPwd').val() ) != trim( $('#UserPwdc').val() ) ){
+		alert("비밀번호가 잘못입력되었습니다.");return false;
+	}
+	/* if( !trim( $('#UserZip1').val() ) || !trim( $('#UserZip2').val() ) || !trim( $('#UserAddr1').val() ) ){
+		alert("주소를 입력하세요.");return false;
+	}
+	if( !trim( $('#UserAddr2').val() )){
+		alert("상세주소를 입력하세요.");return false;
+	}*/
+
+	if( !$('#UserPhone1').val() || !trim( $('#UserPhone2').val() ) || !trim( $('#UserPhone3').val() ) ){
+		alert("휴대폰 번호를 입력하세요.");return false;
+	}
+	if( CheckSpace($('#UserPhone1').val(),'number') || CheckSpace($('#UserPhone2').val(),'number') || CheckSpace($('#UserPhone3').val(),'number') ){
+		alert("휴대폰 번호는 특수문자를 입력할수 없습니다.");return false;
+	}
+
+	if( !trim($('#UserEmail1').val()) || !trim($('#UserEmail3').val()) ){
+		alert("이메일을 입력하세요.");return false;
+	}
+	if( !check_email( trim($('#UserEmail1').val()) +'@' + trim($('#UserEmail3').val()) ) ){
+		alert("유효한 이메일 형식이 아닙니다.");return false;
+	}
+	$('#fm').submit();
+}
+</script>
+<!-- #include file = "../_skin/basic/member/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/member/leftMunu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_member_join.jpg"></div>
+				<div class="contPageNavi">H > 약관동의 > 본인인증 > <b>기본정보입력</b> > 가입완료</div>
+			</div>
+
+			<div class="BoxLineBottom">
+				<h4 class="IconArrow">기본정보입력</h4>
+			</div>
+
+			<form name="fm" id="fm" method="POST" action="memberP.asp">
+			<input type="hidden" name="idcheck" id="idcheck" value="">
+			<input type="hidden" name="actType" id="actType" value="INSERT">
+			<!-- BLOCK BEGIN PHONE_AREA_HIDDEN -->
+			<input type="hidden" name="UserPhone1" id="UserPhone1" value="{$UserPhone1}">
+			<input type="hidden" name="UserPhone2" id="UserPhone2" value="{$UserPhone2}">
+			<input type="hidden" name="UserPhone3" id="UserPhone3" value="{$UserPhone3}">
+			<!-- BLOCK END PHONE_AREA_HIDDEN -->
+
+			<table cellpadding=0 cellspacing=0 width="100%">
+				<tr>
+					<td class="data_cell01">아이디</td>
+					<td class="data_cell02">
+						<input type="text"class="INPUT" size="20" maxlength="50" id="UserId" name="UserId" style="ime-mode:disabled;text-transform:lowercase;">
+						<span id="id_span" class="joinTxtBlue">5~12자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="data_cell01">비밀번호</td>
+					<td class="data_cell02">
+						<input type="password"class="INPUT" size="20" maxlength="50" id="UserPwd" name="UserPwd">
+						<span id="UserPwdTxt" class="joinTxtBlue">6~16자의 영문 대소문자, 숫자 및 특수문자 사용 </span>
+					</td>
+				</tr>
+				<tr>
+					<td class="data_cell01">비밀번호 확인</td>
+					<td class="data_cell02">
+						<input type="password"class="INPUT" size="20" maxlength="50" id="UserPwdc" name="UserPwdc">
+						<span class="joinTxtBlue">비밀번호를 한번 더 입력하세요. </span>
+					</td>
+				</tr>
+				<!--<tr>
+					<td class="data_cell01">주소</td>
+					<td class="data_cell02">
+						<table cellpadding=0 cellspacing=0>
+							<tr>
+								<td><input type="text"class="INPUT" size="4" maxlength="3" id="UserZip1" name="UserZip1" readonly onclick="openDaumPostcode()"> -&nbsp;</td>
+								<td><input type="text"class="INPUT" size="4" maxlength="3" id="UserZip2" name="UserZip2" readonly onclick="openDaumPostcode()">&nbsp;</td>
+								<td><img src="{$imgDir}/btn_search_post.jpg" style="cursor:pointer" onclick="openDaumPostcode()" align=absmiddle></td>
+							</tr>
+						</table><br>
+						<input type="text"class="INPUT" size="45" maxlength="200" id="UserAddr1" name="UserAddr1" readonly>
+						<input type="text"class="INPUT" size="32" maxlength="200" id="UserAddr2" name="UserAddr2">
+						
+						
+					</td>
+				</tr>-->
+				<!-- BLOCK BEGIN PHONE_AREA -->
+				<tr>
+					<td class="data_cell01">핸드폰</td>
+					<td class="data_cell02">
+						<select id="UserPhone1" name="UserPhone1">{$hphoneOption}</select> - 
+						<input type="text"class="INPUT" size="5" maxlength="4" id="UserPhone2" name="UserPhone2" value="{$UserPhone2}"> - 
+						<input type="text"class="INPUT" size="5" maxlength="4" id="UserPhone3" name="UserPhone3" value="{$UserPhone3}">
+					</td>
+				</tr>
+				<!-- BLOCK END PHONE_AREA -->
+				<tr>
+					<td class="data_cell01">이메일</td>
+					<td class="data_cell02">
+						<input type="text" class="INPUT" maxlength="120" id="UserEmail1" name="UserEmail1" style="width:150px;ime-mode:disabled;text-transform:lowercase;"> @
+						<input type="text" class="INPUT" maxlength="80"  id="UserEmail3" name="UserEmail3" style="width:150px;display:none;ime-mode:disabled;text-transform:lowercase;">
+						<select id="UserEmail2" name="UserEmail2" style="width:158px;">{$mailOption}</select>
+						<input type="checkbox" id="emailWrite"> <label for="emailWrite">직접입력</label><br>
+						
+						<input type="checkbox" id="UserEmailfg" name="UserEmailfg"> <span class="joinTxtBlue"><label for="UserEmailfg">소식을 받아보겠습니다.</label></span>
+
+						<!--span class="joinTxtBlue">
+						비밀번호 분실시 이메일로 임시 비밀번호가 발송됩니다.<br>
+						이메일을 정확하게 입력해주세요
+						</span-->
+					</td>
+				</tr>
+			</table>
+
+			</form>
+
+
+
+			<div class="BoxLineBottom" style="text-align:center;padding:30px;">
+				<a href="javascript:void(check());" class="btnRedBox">다음단계</a>&nbsp;&nbsp;
+				<a href="/" class="btnGrayBox">가입취소</a>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<script>
+    function openDaumPostcode() {
+		   daum.postcode.load(function(){
+			new daum.Postcode({
+				oncomplete: function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+					// 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
+					document.getElementById('UserZip1').value = data.postcode1;
+					document.getElementById('UserZip2').value = data.postcode2;
+				   // document.getElementById('UserAddr1').value = data.address;
+
+					//전체 주소에서 연결 번지 및 ()로 묶여 있는 부가정보를 제거하고자 할 경우,
+					//아래와 같은 정규식을 사용해도 된다. 정규식은 개발자의 목적에 맞게 수정해서 사용 가능하다.
+					var addr = data.address.replace(/(\s|^)\(.+\)$|\S+~\S+/g, '');
+					//document.getElementById('addr').value = addr;
+					document.getElementById('UserAddr1').value = addr;
+
+					document.getElementById('UserAddr2').focus();
+				}
+			}).open();
+		});
+    }
+</script>

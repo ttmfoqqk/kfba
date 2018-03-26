@@ -1,0 +1,186 @@
+<style type="text/css">
+#tap_header{margin-bottom:9px;position:relative;}
+#tap_header a{
+	padding:10px 20px 10px 20px;
+	border-top:2px solid #e2e2e2;
+	border-left:2px solid #e2e2e2;
+	border-right:2px solid #e2e2e2;
+}
+#tap_header a.tap_on{
+	background-color:#e2e2e2;
+}
+#tap_header a.tap_off{
+	background-color:#ffffff;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#tap_header > a').click(function(e){
+		e.preventDefault();
+		var myIndex = $(this).index();
+		$('#tap_header > a').each(function(index){
+			if(index == myIndex){
+				$('#tap_header > a:eq('+index+')').attr('class','tap_on');
+				$('#hiddenArea'+index).show();
+			}else{
+				$('#tap_header > a:eq('+index+')').attr('class','tap_off');
+				$('#hiddenArea'+index).hide();
+			}
+		});
+	});
+
+	$('#hiddenArea1').hide();
+
+	$('#UserName').keyup(function(e){
+		CheckSpace_alert($(this),'name');
+	});
+
+	$('#UserEmail1').keyup(function(e){
+		CheckSpace_alert($(this),'email');
+	});
+	$('#UserEmail3').keyup(function(e){
+		CheckSpace_alert($(this),'email');
+	});
+
+	$('#UserBirth1').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+
+	$('#UserPhone1').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	$('#UserPhone2').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	$('#UserPhone3').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+
+
+
+	$('#emailWrite').click(function(){
+		changeEmailInput();
+	});
+	$('#UserEmail2').change(function(){
+		$('#UserEmail3').val( $(this).val() );
+	})
+})
+
+function changeEmailInput(){
+	if( $('#emailWrite').is(":checked") ){
+		$('#UserEmail2').hide();
+		$('#UserEmail3').show();
+	}else{
+		$('#UserEmail2').show();
+		$('#UserEmail3').hide();
+	}
+}
+
+function checkA(){
+	if( !trim($('#UserName').val()) ){
+		alert('이름을 입력하세요.');return false;
+	}
+	if( !trim($('#UserBirth1').val()) || !$('#UserBirth2').val() || !$('#UserBirth3').val() ){
+		alert('생년월일을 입력하세요.');return false;
+	}
+	if( $('#hiddenArea0').css('display')!='none' && (    !$('#UserPhone1').val() || !trim($('#UserPhone2').val()) || !trim($('#UserPhone3').val())    ) ){
+		alert('연락처를 입력하세요.');return false;
+	}
+	if( $('#hiddenArea1').css('display')!='none' && (    !trim($('#UserEmail1').val()) || !trim($('#UserEmail3').val())    ) ){
+		alert('이메일을 입력하세요.');return false;
+	}
+	
+	if( $('#hiddenArea0').css('display')!='none' ){
+		$('#sMode').val('phone');
+	}else{
+		$('#sMode').val('email');
+	}
+
+	$('#fm').submit();
+}
+</script>
+<!-- #include file = "../_skin/basic/member/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/member/leftMunu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_member_fId.jpg"></div>
+				<div class="contPageNavi">H > MEMBER > <b>아이디 찾기</b></div>
+			</div>
+
+			<div class="BoxLineBottom">
+				<h4 class="IconArrow">아래 항목을 입력하시면 아이디와 비밀번호를 찾으실 수 있습니다. </h4>
+			</div>
+
+			<br><br>
+
+			<div id="tap_header">
+				<a href="#" class="tap_on">휴대폰</a><a href="#" class="tap_off">이메일</a>
+			</div>
+			<div>
+			<table cellpadding="0" cellspacing="10" bgcolor="#e2e2e2" width="100%">
+				<tr>
+					<td bgcolor="#f4f4f4" style="padding:20px;" valign="top">
+						<div style="background-color:#ffffff;padding:20px;">
+						
+
+							<form name="fm" id="fm" action="fIdResult.asp" method="POST">
+							<input type="hidden" name="sMode" id="sMode">
+
+							<table align=center width="450">
+								<tr>
+									<td height="30" width="80">이름</td>
+									<td><input type="text" class="INPUT" name="UserName" id="UserName" style="width:220px;ime-mode:active;"></td>
+								</tr>
+								<tr>
+									<td height="30">생년월일</td>
+									<td>
+										<input type="text" class="INPUT" name="UserBirth1" id="UserBirth1" style="width:60px;ime-mode:disabled;" maxlength=4> 년
+										<select id="UserBirth2" name="UserBirth2">
+											{$optionMonth}
+										</select> 월
+										<select id="UserBirth3" name="UserBirth3">
+											{$optionDay}
+										</select> 일
+									</td>
+								</tr>
+								<tr id="hiddenArea0">
+									<td height="30">연락처</td>
+									<td>
+										<select id="UserPhone1" name="UserPhone1">{$hphoneOption}</select> - 
+										<input type="text"class="INPUT" size="5" maxlength="4" id="UserPhone2" name="UserPhone2" style="ime-mode:disabled;"> - 
+										<input type="text"class="INPUT" size="5" maxlength="4" id="UserPhone3" name="UserPhone3" style="ime-mode:disabled;">
+									</td>
+								</tr>
+								<tr id="hiddenArea1">
+									<td height="30">이메일</td>
+									<td>
+										<input type="text" class="INPUT" size="12" maxlength="120" id="UserEmail1" name="UserEmail1" style="ime-mode:disabled;"> @
+										<input type="text" class="INPUT" size="12" maxlength="80"  id="UserEmail3" name="UserEmail3" style="width:130px;display:none;ime-mode:disabled;">
+										<select id="UserEmail2" name="UserEmail2" style="width:138px;">{$mailOption}</select>
+										<input type="checkbox" id="emailWrite"> <label for="emailWrite">직접입력</label>
+									</td>
+								</tr>
+							</table>
+							</form>
+
+						
+						</div>
+
+						<div style="text-align:center;padding-top:30px;">
+							<a href="javascript:void(checkA())" class="btnRedBox">다음단계</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+			</div>
+
+
+
+		</div>
+	</div>
+</div>

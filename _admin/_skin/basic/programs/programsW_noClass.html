@@ -1,0 +1,153 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#Pay').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	$('#MaxNumber').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+})
+function chec_fm(){
+	if( !trim( $('#CodeIdx').val() ) ){
+		alert('프로그램명을 입력하세요.');return false;
+	}
+
+	if( !trim( $('#StartDate').val() ) || !trim( $('#EndDate').val() ) ){
+		alert('검정 접수일자를 입력하세요.');return false;
+	}
+
+	if( !trim( $('#OnData').val() ) ){
+		alert('검정 시행일자를 입력하세요.');return false;
+	}
+	if( !trim( $('#MaxNumber').val() ) ){
+		alert('응시인원을 입력하세요.');return false;
+	}
+	if( !trim( $('#Pay').val() ) ){
+		alert('검정 금액을 입력하세요.');return false;
+	}
+	if( $(":radio[name='areaIdx']:checked").length==0 ){
+		alert("지정 검정장을 체크해주세요.");
+		return;
+	}
+	$('#btn_area').html("처리중입니다.");
+	$('#fm').submit();
+}
+function del_fm_checkbox(){
+	if( confirm("삭제 하시겠습니까?") ){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+</script>
+<div class="center_leftCont_wrap">
+
+	<form name="fm" id="fm" method="post" action="programsP.asp">
+	<input type="hidden" name="actType" id="actType" value="{$actType}">
+	<input type="hidden" name="Idx" id="Idx" value="{$Idx}">
+
+	<input type="hidden" name="pageNo"  value="{$pageNo}">
+	<input type="hidden" name="sOnDate" value="{$sOnDate}">
+	<input type="hidden" name="sPcode"  value="{$sPcode}">
+	<input type="hidden" name="sName"   value="{$sName}">
+	<input type="hidden" name="sKind"   value="{$sKind}">
+	<input type="hidden" name="sClass"  value="{$sClass}">
+	
+	<table cellpadding=0 cellspacing=0 border=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 프로그램</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 프로그램 > 검정관리</td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px">정보 {$actType}</td>
+		</tr>
+		<tr>
+			<td colspan=2>
+				<table cellpadding=0 cellspacing=0 width=100% class="line_box_table">
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0" width="115">프로그램명</td>
+						<td class="line_box">
+							<select id="CodeIdx" name="CodeIdx">{$codeOption}</select> 
+							<br>
+							※수검번호 생성시 프로그램명 정렬 기준으로 검정과목1자리 가 생성됩니다. ( 1 ~ 9 )
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0" width="115">검정방법/급수</td>
+						<td class="line_box">
+							<select id="CodeKind" name="CodeKind">{$KindOption}</select> 
+							<br>
+							※수검번호 생성시 검정방법/급수 기준으로 검정과목 각1자리 가 생성됩니다. ( 필/실기:1~2 , 1/2급:1~2 )
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">검정 접수일자</td>
+						<td class="line_box">
+							<input type="text" id="StartDate" name="StartDate" class="input" value="{$StartDate}" size=15 readonly>
+							<img src="{$imgDir}/center_icon_carender.gif" onclick="callCalendar(fm.StartDate);">
+							~
+							<input type="text" id="EndDate" name="EndDate" class="input" value="{$EndDate}" size=15 readonly>
+							<img src="{$imgDir}/center_icon_carender.gif" onclick="callCalendar(fm.EndDate);">
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">검정 시행일시</td>
+						<td class="line_box">
+							<input type="text" id="OnData" name="OnData" class="input" value="{$OnData}" size=15 readonly>
+							<img src="{$imgDir}/center_icon_carender.gif" onclick="callCalendar(fm.OnData);">
+
+							<select id="OnDataHours" name="OnDataHours">{$hoursOption}</select> 시 <select id="OnDataMinutes" name="OnDataMinutes">{$minutesOption}</select> 분
+
+							<br>
+							※수검번호 생성시 검정 시행일자 기준으로 년도2자리 + 월2자리가 생성됩니다.
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">응시인원 설정</td>
+						<td class="line_box">
+							<input type="text" id="MaxNumber" name="MaxNumber" class="input" value="{$MaxNumber}" style="text-align:right"> 명
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">검정 금액</td>
+						<td class="line_box">
+							<input type="text" id="Pay" name="Pay" class="input" value="{$Pay}" style="text-align:right"> 원
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">지정 검정장</td>
+						<td class="line_box">
+							<!-- BLOCK BEGIN AREA_LOOP -->
+							<table border=0 width="100%"  style="border-bottom:1px solid #d3d3d3;">
+								<tr>
+									<td rowspan=3 width="20"><input type="radio" name="areaIdx" value="{$Idx}" id="area_{$Idx}" {$checked}></td>
+									<td><label for="area_{$Idx}">{$Name}</label></td>
+								</tr>
+								<tr>
+									<td><label for="area_{$Idx}"><span style="color:blue;">{$Addr}</span></label></td>
+								</tr>
+								<tr>
+									<td><label for="area_{$Idx}">{$Tel}</label></td>
+								</tr>
+							</table>
+							<!-- BLOCK END AREA_LOOP -->
+						</td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2 id="btn_area">
+				<a href="javascript:void(chec_fm())"><img src="{$imgDir}/center_btn_write_ok.gif"></a> &nbsp;&nbsp;
+				<a href="javascript:void(del_fm_checkbox())"><img src="{$imgDir}/center_btn_delete.gif"></a>
+			</td>
+		</tr>
+	</table>
+	
+	</form>
+
+</div>

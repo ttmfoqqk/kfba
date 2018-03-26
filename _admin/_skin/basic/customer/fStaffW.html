@@ -1,0 +1,195 @@
+<!-- BLOCK BEGIN INFO -->
+ - {$imgDir}      : 타이틀
+ - {$agree1}     : 이용약관
+ - {$agree2}     : 개인정보취급방침
+
+<!-- BLOCK END INFO -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#StaffCnt').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+})
+function check(){
+	if( !trim($('#Title').val()) ){
+		alert('제목을 작성해주세요.');return false;
+	}
+	if( !trim($('#CompanyName').val()) ){
+		alert('기관명을 작성해주세요.');return false;
+	}
+	if( !trim($('#OwnerName').val()) ){
+		alert('대표자명을 작성해주세요.');return false;
+	}
+	if( !trim($('#ManagerName').val()) ){
+		alert('채용담당자명을 작성해주세요.');return false;
+	}
+	if( !trim($('#Dates').val()) ){
+		alert('모집기간을 작성해주세요.');return false;
+	}
+	if( !trim($('#Pay').val()) ){
+		alert('급여를 작성해주세요.');return false;
+	}
+	if( !trim($('#StaffCnt').val()) ){
+		alert('모집인원을 작성해주세요.');return false;
+	}
+	if( !$('#Form').val() ){
+		alert('근무형태를 선택해주세요.');return false;
+	}
+	if( !$('#Kind').val() ){
+		alert('직종을 선택해주세요.');return false;
+	}
+	if( !trim($('#Tel').val()) ){
+		alert('연락처를 작성해주세요.');return false;
+	}
+	if( !trim($('#Email').val()) ){
+		alert('이메일을 작성해주세요.');return false;
+	}
+	if( !trim($('#Addr').val()) ){
+		alert('주소를 작성해주세요.');return false;
+	}
+	if( !trim($('#WorkArea').val()) ){
+		alert('근무지역을 작성해주세요.');return false;
+	}
+	if( !trim($('#WorkTime').val()) ){
+		alert('근무시간을 작성해주세요.');return false;
+	}
+	if( !trim($('#Method').val()) ){
+		alert('접수방법을 작성해주세요.');return false;
+	}
+	if( !$('#insure').val() ){
+		alert('4대보험 여부를 선택해주세요.');return false;
+	}
+	if( !trim($('#Pwd').val()) ){
+		alert('비밀번호를 입력해주세요.');return false;
+	}
+	$('#fm').submit()
+}
+</script>
+<div class="center_leftCont_wrap">
+		
+	<table cellpadding=0 cellspacing=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 게시판관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 게시판 관리 > 채용 </td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px"><img src="{$imgDir}/center_sub_board_write.gif"></td>
+		</tr>
+
+		<form id="fm" name="fm" method="POST" action="fStaffP.asp">
+		<input type="hidden" name="actType" id="actType" value="{$actType}">
+		<input type="hidden" name="Idx" value="{$Idx}">
+		
+		<input type="hidden" name="Name" value="{$sName}">
+		<input type="hidden" name="Id" value="{$sId}">
+		<input type="hidden" name="Indate" value="{$sIndate}">
+		<input type="hidden" name="Outdate" value="{$sOutdate}">
+
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td colspan=2 >
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table" border=0>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0" width="140">제목</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="Title" id="Title" value="{$Title}" style="width:100%;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0" width="140">기관명</td>
+						<td class="line_box"><input type="text" class="INPUT" name="CompanyName" id="CompanyName" value="{$CompanyName}" maxlength="200"></td>
+						<td class="line_box" bgcolor="f0f0f0" width="140">대표자명</td>
+						<td class="line_box"><input type="text" class="INPUT" name="OwnerName" id="OwnerName" value="{$OwnerName}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">채용담당자명</td>
+						<td class="line_box"><input type="text" class="INPUT" name="ManagerName" id="ManagerName" value="{$ManagerName}" maxlength="50"></td>
+						<td class="line_box" bgcolor="f0f0f0">모집기간</td>
+						<td class="line_box">
+							<input type="text" class="INPUT" name="Dates" id="Dates" value="{$Dates}" readonly>
+							<a href="javascript:void( callCalendar(fm.Dates) )"><img src="{$imgDir}/center_icon_carender.gif" align=absmiddle></a>
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">급여</td>
+						<td class="line_box" ><input type="text" class="INPUT" name="Pay" id="Pay" value="{$Pay}" maxlength="200"></td>
+						<td class="line_box" bgcolor="f0f0f0">모집인원</td>
+						<td class="line_box"><input type="text" class="INPUT" name="StaffCnt" id="StaffCnt" value="{$StaffCnt}" style="width:50px;" maxlength="50">명</td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">근무형태</td>
+						<td class="line_box"><select id="Form" name="Form">{$FormOption}</select></td>
+						<td class="line_box" bgcolor="f0f0f0">직종</td>
+						<td class="line_box"><select id="Kind" name="Kind">{$KindOption}</select></td>
+						
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">홈페이지</td>
+						<td class="line_box" colspan="3">http://<input type="text" class="INPUT" name="HomePage" id="HomePage" value="{$HomePage}" style="width:565px;" maxlength="200"></a></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">전화</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="Tel" id="Tel" value="{$Tel}" style="width:100%;" maxlength="100"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">팩스</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="Fax" id="Fax" value="{$Fax}" style="width:100%;" maxlength="100"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">이메일</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="Email" id="Email" value="{$Email}" style="width:100%;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">주소</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="Addr" id="Addr" value="{$Addr}" style="width:100%;" maxlength="200"></td>
+					</tr>
+					
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">근무지역</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="WorkArea" id="WorkArea" value="{$WorkArea}" style="width:100%;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">근무시간</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="WorkTime" id="WorkTime" value="{$WorkTime}" style="width:100%;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">자격요건</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="Qualify" id="Qualify" value="{$Qualify}" style="width:100%;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">준비서류</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="Files" id="Files" value="{$Files}" style="width:100%;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">접수방법</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" name="Method" id="Method" value="{$Method}" style="width:100%;" maxlength="200"></td>
+					</tr>
+					
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">4대보험 여부</td>
+						<td class="line_box" colspan="3"><select id="insure" name="insure">{$insureOption}</select></td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">비고</td>
+						<td class="line_box" colspan="3" style="height:100px;padding-top:10px;line-height:160%;" valign=top>
+							<textarea id="Bigo" name="Bigo" style="width:100%;height:180px;">{$Bigo}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" bgcolor="f0f0f0">비밀번호</td>
+						<td class="line_box" colspan="3"><input type="text" class="INPUT" id="Pwd" name="Pwd" maxlength="50" value="{$Pwd}" ></td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>
+				<img src="{$imgDir}/center_btn_write_ok.gif" style="cursor:pointer;" onclick="check()">
+				<a href="fStaffL.asp?{$PageParams}"><img src="{$imgDir}/center_btn_list.gif"></a>
+			</td>
+		</tr>
+	</table>
+
+</div>

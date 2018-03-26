@@ -1,0 +1,82 @@
+<!-- BLOCK BEGIN INFO -->
+ - {$imgDir}      : 타이틀
+ - {$agree1}     : 이용약관
+ - {$agree2}     : 개인정보취급방침
+
+<!-- BLOCK END INFO -->
+<script type="text/javascript">
+function del_fm_checkbox(){
+	if(confirm("원문을 지우시면 해당 답변도 삭제가 됩니다.\n\n삭제 하시겠습니까?")){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+</script>
+<div class="center_leftCont_wrap">
+		
+	<table cellpadding=0 cellspacing=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 게시판관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 게시판 관리 > {$BoardName} </td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px"><img src="{$imgDir}/center_sub_board_write.gif"></td>
+		</tr>
+
+		<form id="fm" method="POST" action="customerP.asp" enctype="multipart/form-data">
+		<input type="hidden" name="actType" id="actType" value="">
+		<input type="hidden" name="Idx" value="{$Idx}">
+		<input type="hidden" name="BoardKey" value="{$BoardKey}">
+
+		<input type="hidden" name="sIndate" value="{$sIndate}">
+		<input type="hidden" name="sOutdate" value="{$sOutdate}">
+		<input type="hidden" name="sUserId" value="{$sUserId}">
+		<input type="hidden" name="sUserName" value="{$sUserName}">
+		<input type="hidden" name="sTitle" value="{$sTitle}">
+
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td colspan=2 >
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">제목</td>
+						<td class="line_box">{$Title}</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">작성자/ID</td>
+						<td class="line_box">{$Name} / {$Id}</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">내용</td>
+						<td class="line_box" height="300" valign=top>{$Contants}</td>
+					</tr>
+					<!-- BLOCK BEGIN FILE_HIDDEN -->
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">첨부파일</td>
+						<td class="line_box"><a href="{$downloadUrl}">{$File}</a></td>
+					</tr>
+					<!-- BLOCK END FILE_HIDDEN -->
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">등록일</td>
+						<td class="line_box">{$Indate}</td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>
+				<a href="customerW.asp?{$PageParams}&Idx={$Idx}&actType=MODIFY"><img src="{$imgDir}/center_btn_edite.gif"></a>
+				<!-- BLOCK BEGIN BTN_REPLY -->
+				<a href="customerW.asp?{$PageParams}&Idx={$Idx}&actType=ANSWERE"><img src="{$imgDir}/center_btn_Replyl.gif"></a>
+				<!-- BLOCK END BTN_REPLY -->
+				<img src="{$imgDir}/center_btn_delete.gif" style="cursor:pointer;" onclick="del_fm_checkbox()">
+				<a href="customerL.asp?{$PageParams}"><img src="{$imgDir}/center_btn_list.gif"></a>
+			</td>
+		</tr>
+	</table>
+
+</div>

@@ -1,0 +1,129 @@
+<!-- BLOCK BEGIN INFO -->
+ - {$imgDir}      : 타이틀
+ - {$agree1}     : 이용약관
+ - {$agree2}     : 개인정보취급방침
+
+<!-- BLOCK END INFO -->
+<script type="text/javascript">
+function del_fm_checkbox(){
+	if(confirm("삭제 하시겠습니까?")){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+</script>
+<div class="center_leftCont_wrap">
+		
+	<table cellpadding=0 cellspacing=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 게시판관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 게시판 관리 > 협회자격취득자 </td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px"><img src="{$imgDir}/center_sub_board_write.gif"></td>
+		</tr>
+
+		<form id="fm" method="POST" action="fJobP.asp">
+		<input type="hidden" name="actType" id="actType" value="">
+		<input type="hidden" name="Idx" value="{$Idx}">
+		
+		<input type="hidden" name="sIndate" value="{$sIndate}">
+		<input type="hidden" name="sOutdate" value="{$sOutdate}">
+		<input type="hidden" name="sId" value="{$sId}">
+		<input type="hidden" name="sName" value="{$sName}">
+
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td colspan=2 >
+				
+				<div>{$Photos}</div><br><br>
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="150">이름</td>
+						<td class="line_box" width="200">{$UserName}</td>
+						<td class="line_box" bgcolor="f0f0f0" width="100">생년월일</td>
+						<td class="line_box">{$UserBirth}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="100">연락처</td>
+						<td class="line_box" width="150">{$UserPhone}</td>
+						<td class="line_box" bgcolor="f0f0f0" width="100">이메일</td>
+						<td class="line_box" width="150">{$UserEmail}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="100">직종</td>
+						<td class="line_box" width="150">{$Form}</td>
+						<td class="line_box" bgcolor="f0f0f0" width="100">고용형태</td>
+						<td class="line_box" width="150">{$Kind}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="100">근무희망 지역</td>
+						<td class="line_box" width="150">{$WorkArea}</td>
+						<td class="line_box" bgcolor="f0f0f0" width="100">희망급여</td>
+						<td class="line_box" width="150">{$Pay}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="100">학력사항</td>
+						<td class="line_box" colspan=3>{$School}</td>
+					</tr>					
+					
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="100">비고</td>
+						<td class="line_box" colspan=3 style="height:100px;padding-top:10px;line-height:160%;" valign=top>
+							{$Bigo}
+						</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="100">첨부자료</td>
+						<td class="line_box" colspan=3><a href="{$downloadUrl}">{$File}</a></td>
+					</tr>
+				</table>
+
+				<div class="BoxLineBottom"><h4 class="IconArrow">경력사항</h4></div>
+				
+				<table cellpadding=0 cellspacing=0 width="100%">
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="33%">근무처</td>
+						<td class="line_box" bgcolor="f0f0f0" width="33%">근무개월</td>
+						<td class="line_box" bgcolor="f0f0f0" width="33%">최종직위</td>
+					</tr>
+					<!-- BLOCK BEGIN CAREER_LOOP -->
+					<tr height="35">
+						<td class="line_box" width="33%">{$Name}</td>
+						<td class="line_box" width="33%">{$WorkMonth}</td>
+						<td class="line_box" width="33%">{$LastPosition}</td>
+					</tr>
+					<!-- BLOCK END CAREER_LOOP -->
+				</table>
+
+				<div class="BoxLineBottom"><h4 class="IconArrow">자격증</h4></div>
+
+				<table cellpadding=0 cellspacing=0 width="100%">
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="33%">자격명</td>
+						<td class="line_box" bgcolor="f0f0f0" width="33%">취득일자</td>
+						<td class="line_box" bgcolor="f0f0f0" width="33%">발행처</td>
+					</tr>
+					<!-- BLOCK BEGIN QUALIFY_LOOP -->
+					<tr height="35">
+						<td class="line_box" width="33%">{$Name}</td>
+						<td class="line_box" width="33%">{$Tdate}</td>
+						<td class="line_box" width="33%">{$Publish}</td>
+					</tr>
+					<!-- BLOCK END QUALIFY_LOOP -->
+				</table>
+
+			</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>
+				<img src="{$imgDir}/center_btn_delete.gif" style="cursor:pointer;" onclick="del_fm_checkbox()">
+				<a href="fJobL.asp?{$PageParams}"><img src="{$imgDir}/center_btn_list.gif"></a>
+			</td>
+		</tr>
+	</table>
+
+</div>

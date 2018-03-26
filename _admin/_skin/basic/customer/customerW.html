@@ -1,0 +1,123 @@
+<!-- BLOCK BEGIN INFO -->
+- {$imgDir}    : 타이틀
+- {$BoardName}  : 게시판 이름
+
+<!-- BLOCK END INFO -->
+<div class="center_leftCont_wrap">
+		
+	<table cellpadding=0 cellspacing=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 게시판관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 게시판관리 > {$BoardName} </td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px"><img src="{$imgDir}/center_sub_board_write.gif"></td>
+		</tr>
+
+		<form name="fm" id="fm" method="POST" action="customerP.asp" enctype="multipart/form-data">
+		<input type="hidden" name="oldFileName" value="{$File}">
+		<input type="hidden" name="Idx" value="{$Idx}">
+		<input type="hidden" name="UserIdx" value="{$UserIdx}">
+		<input type="hidden" name="actType" value="{$actType}">
+		<input type="hidden" name="BoardKey" value="{$BoardKey}">
+		<input type="hidden" name="Secret" value="{$Secret}">
+		<input type="hidden" name="Pwd" value="{$Pwd}">
+		
+		<input type="hidden" name="pageNo" value="{$pageNo}">
+		<input type="hidden" name="sIndate" value="{$sIndate}">
+		<input type="hidden" name="sOutdate" value="{$sOutdate}">
+		<input type="hidden" name="sUserId" value="{$sUserId}">
+		<input type="hidden" name="sUserName" value="{$sUserName}">
+		<input type="hidden" name="sTitle" value="{$sTitle}">
+
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td colspan=2 >
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<!-- BLOCK BEGIN HIDDEN_DATA -->
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">작성자 / ID</td>
+						<td class="line_box">{$Name} / {$Id}</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">작성일자</td>
+						<td class="line_box">{$Indate}</td>
+					</tr>
+					<!-- BLOCK END HIDDEN_DATA -->
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">제목</td>
+						<td class="line_box"><input type="text" style="width:100%" name="rTitle" id="rTitle" class="input" value="{$Title}" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">내용</td>
+						<td class="line_box">
+							<textarea name="Contants" id="Contants" style="width:100%;height:300px;display:none;">{$Contants}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">첨부파일</td>
+						<td class="line_box">
+							<input type="file" name="FileName" class="input">
+							<!-- BLOCK BEGIN HIDDEN_DATA_FILE -->
+							<br>
+							{$File}
+							<input type="checkbox" value="1" name="DellFileFg"> 기존파일 삭제
+							<!-- BLOCK END HIDDEN_DATA_FILE -->
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">공지</td>
+						<td class="line_box"><input type="checkbox" value="1" name="Notice" {$Notice}></td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2 id="btnArea">
+				<img src="{$imgDir}/center_btn_write_ok.gif" style="cursor:pointer;" onclick="submitContents()">
+				<a href="customerL.asp?{$PageParams}"><img src="{$imgDir}/center_btn_list.gif"></a>
+				
+			</td>
+		</tr>
+	</table>
+
+</div>
+
+<script type="text/javascript">
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+	oAppRef: oEditors,
+	elPlaceHolder: "Contants",
+	sSkinURI: "../../_smarteditor/SmartEditor2Skin.html",	
+	htParams : {bUseToolbar : true,
+		fOnBeforeUnload : function(){
+			//
+		}
+	}, //boolean
+	fOnAppLoad : function(){
+		//oEditors.getById["Agree1"].exec("PASTE_HTML", [""]);
+	},
+	fCreator: "createSEditor2"
+});
+
+function submitContents() {
+	
+	oEditors.getById["Contants"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
+	//document.getElementById("content").value
+	if( !trim( $('#rTitle').val() ) ){
+		alert("제목을 입력하세요.");return false;
+	}
+	if( !trim( $('#Contants').val() ) || trim( $('#Contants').val() )=='<br>' ){
+		alert("내용을 입력하세요.");return false;
+	}
+	$('#btnArea').html("처리중입니다.");
+	try {
+		$('#fm').submit();
+	} catch(e) {}
+}
+
+</script>

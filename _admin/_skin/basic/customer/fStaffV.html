@@ -1,0 +1,146 @@
+<!-- BLOCK BEGIN INFO -->
+ - {$imgDir}      : 타이틀
+ - {$agree1}     : 이용약관
+ - {$agree2}     : 개인정보취급방침
+
+<!-- BLOCK END INFO -->
+<script type="text/javascript">
+function del_fm_checkbox(){
+	if(confirm("삭제 하시겠습니까?")){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+</script>
+<div class="center_leftCont_wrap">
+		
+	<table cellpadding=0 cellspacing=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 게시판관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 게시판 관리 > 채용 </td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px"><img src="{$imgDir}/center_sub_board_write.gif"></td>
+		</tr>
+
+		<form id="fm" method="POST" action="fStaffP.asp">
+		<input type="hidden" name="actType" id="actType" value="">
+		<input type="hidden" name="Idx" value="{$Idx}">
+		
+		<input type="hidden" name="Name" value="{$sName}">
+		<input type="hidden" name="Id" value="{$sId}">
+		<input type="hidden" name="Indate" value="{$sIndate}">
+		<input type="hidden" name="Outdate" value="{$sOutdate}">
+
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td colspan=2 >
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">대표자명</td>
+						<td class="line_box">{$OwnerName}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">채용담당자명</td>
+						<td class="line_box">{$ManagerName}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">홈페이지</td>
+						<td class="line_box">{$HomePage}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">기관명</td>
+						<td class="line_box">{$CompanyName}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">주소</td>
+						<td class="line_box">{$Addr}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">전화</td>
+						<td class="line_box">{$Tel}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">팩스</td>
+						<td class="line_box">{$Fax}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">이메일</td>
+						<td class="line_box">{$Email}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">제목</td>
+						<td class="line_box">{$Title}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">형태</td>
+						<td class="line_box">{$Form}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">직종</td>
+						<td class="line_box">{$Kind}</td>
+					</tr>
+
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">근무지역</td>
+						<td class="line_box">{$WorkArea}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">근무시간</td>
+						<td class="line_box">{$WorkTime}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">모집인원</td>
+						<td class="line_box">{$StaffCnt}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">자격요건</td>
+						<td class="line_box">{$Qualify}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">준비서류</td>
+						<td class="line_box">{$Files}</td>
+					</tr>
+
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">접수기간</td>
+						<td class="line_box">{$Dates}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">접수방법</td>
+						<td class="line_box">{$Method}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">급여</td>
+						<td class="line_box">{$Pay}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">4대보험 여부</td>
+						<td class="line_box">{$insure}</td>
+					</tr>
+
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">비고</td>
+						<td class="line_box" height="300" valign=top>{$Bigo}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">등록일</td>
+						<td class="line_box">{$InData}</td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>
+				<a href="fStaffW.asp?{$PageParams}&Idx={$Idx}&actType=MODIFY"><img src="{$imgDir}/center_btn_edite.gif"></a>
+				<img src="{$imgDir}/center_btn_delete.gif" style="cursor:pointer;" onclick="del_fm_checkbox()">
+				<a href="fStaffL.asp?{$PageParams}"><img src="{$imgDir}/center_btn_list.gif"></a>
+			</td>
+		</tr>
+	</table>
+
+</div>

@@ -1,0 +1,58 @@
+<link href='../_lib/js/fullcalendar/fullcalendar.css' rel='stylesheet' />
+<script src='../_lib/js/fullcalendar/fullcalendar.js'></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+	$('#calendar').fullCalendar({
+		header: {
+			left: 'prev',
+			center: 'title',
+			right: 'next'
+		},
+		editable: false,		
+		events  : "ajax.applicationList.asp",
+		loading: function(bool) {
+			if (bool) pop_loading();
+			else layerPopupClose('wall_loading','pop_loading');
+		}
+	});
+	
+});
+</script>
+
+<style type="text/css">
+#calendar {
+	width: 740px;
+	margin: 0 auto;
+	}
+</style>
+
+<!-- #include file = "../_skin/basic/application/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/application/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_application_all.jpg"></div>
+				<div class="contPageNavi">H > 응시안내 및 접수 > <b>응시일정 조회</b></div>
+			</div>
+			
+
+			<h4 class="IconArrow">응시일정 조회</h4>
+
+			<div id="board_wrap">
+				
+				<form name="fm" id="fm" method="GET">
+				<input type="hidden" name="sPcode" value="{$sPcode}">
+				<input type="hidden" name="sACode" value="{$sACode}">
+				</form>
+				<div id='calendar'></div>
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

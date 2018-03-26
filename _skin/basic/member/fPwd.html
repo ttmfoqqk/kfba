@@ -1,0 +1,78 @@
+<script type="text/javascript">
+function authPup(m){
+	if(!m)return false;
+	var Url   = m == 'safe' ? '/CheckPlusSafe/checkplus_main.asp?pageMode=fPwd' : '/ipin/ipin_main.asp?pageMode=fPwd';
+	var width = m == 'safe' ? 500 : 450;
+	window.open(Url, 'popupIPIN2', 'width='+width+', height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+}
+</script>
+<!-- #include file = "../_skin/basic/member/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/member/leftMunu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_member_fPwd.jpg"></div>
+				<div class="contPageNavi">H > MEMBER > <b>비밀번호 찾기</b></div>
+			</div>
+
+			<div class="BoxLineBottom">
+				<h4 class="IconArrow">본인인증 후 비밀번호를 찾을 수 있습니다.</h4>
+			</div>
+
+			<h4>본인인증</h4>
+
+			<p class="contTxt iconNaceLogo">
+			2가지 인증방식 중 원하는 인증방식을 선택해주세요!<br>
+			인증과정에서 어떠한 결제도 이루어지지 않습니다.<br>
+			한국외식음료개발원은 <span class="textBlueBold">나이스 신용평가단에서 실시</span>하는 본인인증 서비스를 시행하고 있습니다.<br>
+			<span class="textPinkBold">타인(부모님, 회사)명의로 휴대폰을 사용하는 고객님께선 아이핀인증을 이용해주시기 바랍니다.<span>
+			</p>
+
+			<form name="fm" id="fm" action="fPwdResult.asp" method="POST">
+			<input type="hidden" name="agree" name="agree" value="{$agree}">
+			<input type="hidden" name="authResult" id="authResult" value="">
+			</form>
+
+
+
+			<div class="BoxLineOutLine">
+				<table cellpadding="0" cellspacing="0" width="100%">
+					<tr>
+						<td width="50%" align=center>
+							<a href="javascript:void( authPup('safe') );"><img src="{$imgDir}/icon_auth_phone_off.jpg" class="rollover"></a><br><br>
+							<img src="{$imgDir}/icon_auth_phone_txt.jpg"><br><br>
+							
+							<div style="text-align:left;margin-left:80px;">
+								<span class="textPinkBold" style="line-height:160%;">
+								※ 주의사항<br>
+								본인명의 휴대폰만 가능합니다.
+								</span>
+							</div>
+						</td>
+						<td width="50%" align=center style="border-left:1px solid #dddddd;">
+							<a href="javascript:void( authPup('ipin') );"><img src="{$imgDir}/icon_auth_ipin_off.jpg" class="rollover"></a><br><br>
+							<img src="{$imgDir}/icon_auth_ipin_txt.jpg">
+
+							<div style="text-align:left;margin-left:80px;">
+								<span class="textPinkBold" style="line-height:160%;">
+								※ 주의사항<br>
+								아이핀 아이디가 없는 회원님께선<br>
+								아이핀인증 버튼을 클릭하신 다음<br>
+								아이핀인증 회원가입 후 이용이 가능합니다.
+								</span>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div id="joinAuthTxtBox" class="joinAuthTxtBox">&nbsp;</div>
+
+
+
+		</div>
+	</div>
+</div>

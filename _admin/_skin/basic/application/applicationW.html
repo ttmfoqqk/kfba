@@ -1,0 +1,215 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#PhotosArea > img').css('cursor','pointer');
+	$('#PhotosArea > img').click(function(){
+		var imgSrc    = $(this).attr('src');
+		html = '<div id="BigImgPup" style="" onclick="$(this).remove();"><img src="'+imgSrc+'"></div>';
+		$('body').append(html);
+		
+		$('#BigImgPup > img').load(function(){
+			var cWidth  = $(this).width();
+			var cHeight = $(this).height();
+			var w = cWidth > 1000 ? 1000 : cWidth;
+			$(this).css('width',w);
+			var left = ( $(window).scrollLeft() + ($(window).width() - $(this).width()) / 2 );
+			var top = ( $(window).scrollTop() + ($(window).height() - $(this).height()) / 2 );
+			$('#BigImgPup').css({ 'position':'absolute' , 'top':top+'px' , 'left':left+'px' , 'cursor':'pointer' , 'border':'2px solid #000000' , 'z-index':'500' , 'padding':'5px' , 'background-color':'#ffffff' });
+		});
+	})
+	$("#printBtn").click(function() {
+		$('#photo_modify_btn').hide();
+		print($('#printArea').html());
+		$('#photo_modify_btn').show();
+	}).css('cursor','pointer');
+
+})
+function del_fm_checkbox(){
+	if( confirm("삭제 하시겠습니까?") ){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+function check(){
+	if( confirm("수정 하시겠습니까?") ){
+		$('#fm').submit();
+	}
+}
+function changePhotos(){
+	if(!$('#PhotoName').val()){
+		alert('사진을 등록해주세요.');
+		return false;
+	}
+	$('#fmPhoto').submit();
+}
+var win = null;
+function print(printThis){
+	win = window.open('','','width=700,height=600');
+	self.focus();
+	win.document.open();
+	win.document.write('<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">');
+	win.document.write('<HEAD><TITLE> 수험표 출력 </TITLE>');
+	win.document.write('<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />');
+	win.document.write('<link href="../../_lib/css/common.css" rel="stylesheet" type="text/css" />');
+	win.document.write('<link href="../_skin/basic/_inc/css/admin.css" rel="stylesheet" type="text/css" />');
+	win.document.write('<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">');
+	win.document.write('<html xmlns="http://www.w3.org/1999/xhtml" lang="ko"></HEAD>');
+	win.document.write('<body>');
+	win.document.write(printThis);
+	win.document.write('</body>');
+	win.document.write('<html>');
+	win.document.close();
+	win.print();
+	win.close();
+}
+</script>
+<div class="center_leftCont_wrap">
+
+	
+	
+	<table cellpadding=0 cellspacing=0 border=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 응시관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 응시관리 > 검정응시 관리</td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2>
+				<div id="printArea">
+
+					<div style="padding:10px 0px 10px 0px">수험표</div>
+					<div id="PhotosArea">{$Photo}</div>
+					<div id="photo_modify_btn" style="margin-top:10px;width:300px;">
+					
+					{$PhotoDown}<br><br>
+					<form name="fmPhoto" id="fmPhoto" method="POST" action="PhotosProc.asp" enctype="multipart/form-data">
+						<input type="hidden" name="oldPhotoName" value="{$oldPhotoName}">
+						<input type="hidden" name="GoUrl" id="GoUrl" value="{$GoUrl}">
+						<input type="hidden" name="UserIdx" id="UserIdx" value="{$UserIdx}">
+						<input type="file" name="PhotoName" id="PhotoName" style="width:100%;">
+						<a href="javascript:void(changePhotos());"><img src="{$imgDir}/center_btn_edite.gif" style="margin-top:10px;"></a>
+					</form>
+
+					</div>
+					<br>
+
+					<form name="fm" id="fm" method="post" action="applicationP.asp">
+					<input type="hidden" name="actType" id="actType" value="{$actType}">
+					<input type="hidden" name="Idx" id="Idx" value="{$Idx}">
+
+					<input type="hidden" name="pageNo"     value="{$pageNo}">
+					<input type="hidden" name="sIndate"    value="{$sIndate}">
+					<input type="hidden" name="sOutdate"   value="{$sOutdate}">
+					<input type="hidden" name="sOnDate"    value="{$sOnDate}">
+					<input type="hidden" name="sPcode"     value="{$sPcode}">
+					<input type="hidden" name="sArea"      value="{$sArea}">
+
+					<input type="hidden" name="sId"        value="{$sId}">
+					<input type="hidden" name="sName"      value="{$sName}">
+					<input type="hidden" name="sPhone3"    value="{$sPhone3}">
+					<input type="hidden" name="sState"     value="{$sState}">
+					<input type="hidden" name="sSnumber"   value="{$sSnumber}">
+					<input type="hidden" name="sKind"      value="{$sKind}">
+					<input type="hidden" name="sClass"     value="{$sClass}">
+					<input type="hidden" name="sOnTime"    value="{$sOnTime}">
+
+					<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					
+						<tr height="35">
+							<td  class="line_box" bgcolor="f0f0f0" width="150">성명</td>
+							<td class="line_box" width="200">{$UserName}</td>
+							<td  class="line_box" bgcolor="f0f0f0" width="150">아이디</td>
+							<td class="line_box">{$UserId}</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">영문(성)</td>
+							<td class="line_box" >{$LastName}</td>
+							<td class="line_box" bgcolor="f0f0f0">영문(이름)</td>
+							<td class="line_box" >{$FirstName}</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">핸드폰</td>
+							<td class="line_box" >{$UserPhone}</td>
+							<td class="line_box" bgcolor="f0f0f0">생년월일</td>
+							<td class="line_box" >{$UserBirth}</td>
+						</tr>
+						<tr height="35">
+							<td  class="line_box" bgcolor="f0f0f0" width="150">이메일</td>
+							<td class="line_box" colspan=3>{$UserEmail}</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">주소</td>
+							<td class="line_box" colspan=3>{$UserAddr}</td>
+						</tr>	
+					</table>
+
+					<br>
+
+					<table cellpadding=0 cellspacing=0 width=100% class="line_box_table">
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0" width="150">수검번호</td>
+							<td class="line_box">{$Snumber}</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0" width="150">자격종목</td>
+							<td class="line_box">{$ProgramName}</td>
+						</tr>					
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">검정시행일</td>
+							<td class="line_box">{$OnData}</td>
+						</tr>
+					</table>
+				</div>
+
+					<table cellpadding=0 cellspacing=0 width=100% style="border-left:1px solid #d3d3d3;table-layout:fixed;">
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0" width="150">응시접수일</td>
+							<td class="line_box">{$InData}</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">지정검정장</td>
+							<td class="line_box">{$AreaName}</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">검정금액</td>
+							<td class="line_box">{$Pay} 원</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">결제방법</td>
+							<td class="line_box">{$PayMode}</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">결제일자</td>
+							<td class="line_box">{$PayDate}</td>
+						</tr>
+						<tr height="35">
+							<td class="line_box" bgcolor="f0f0f0">진행상황</td>
+							<td class="line_box">
+								<select id="State" name="State">{$StateOption}</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="line_box" bgcolor="f0f0f0">비고</td>
+							<td class="line_box">
+								<textarea name="Bigo" id="Bigo" style="width:100%;height:80px;">{$Bigo}</textarea>
+							</td>
+						</tr>
+					</table>
+
+					</form>
+
+
+			</td>
+		</tr>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2 id="btn_area">
+				<a href="javascript:check()"><img src="{$imgDir}/center_btn_write_ok.gif"></a> &nbsp;&nbsp;
+				<img src="{$imgDir}/center_btn_print.gif" id="printBtn">
+			</td>
+		</tr>
+	</table>
+	
+	
+
+</div>

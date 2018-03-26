@@ -1,0 +1,90 @@
+<!-- BLOCK BEGIN INFO -->
+- {$pageList}    : 페이지 리스트
+- {$imgDir}      : 이미지 경로
+
+- {$adminId}     : 아이디
+- {$adminName}   : 이름
+- {$adminHphone} : 핸드폰
+- {$adminEmail}  : 이메일
+- {$adminMsg}    : 메신저
+- {$adminExtNum} : 내선번호
+
+<!-- BLOCK END INFO -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#check_all').click(function(){
+		if( $(this).is(":checked") ){
+			$(':checkbox[name="adminIdx"]').attr('checked', true);
+		}else{
+			$(':checkbox[name="adminIdx"]').attr('checked', false);
+		}
+	});
+})
+function del_fm_checkbox(){
+	if( $(":checkbox[name='adminIdx']:checked").length==0 ){
+		alert("삭제할 항목을 하나이상 체크해주세요.");
+		return;
+	}
+	if(confirm("삭제 하시겠습니까?")){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+</script>
+<div class="center_leftCont_wrap">
+
+	<form name="fm" id="fm" method="post" action="companyMemberP.asp">
+	<input type="hidden" name="actType" id="actType" value="">
+	
+	<table cellpadding=0 cellspacing=0 border=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 사원관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 홈페이지 관리 > 사원관리</td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px">목록</td>
+		</tr>
+		<tr>
+			<td colspan=2>
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr height="30" align=center bgcolor="f0f0f0">
+						<td class="line_box" width="30"><input type="checkbox" name="check_all" id="check_all"></td>
+						<td class="line_box" width="8%">ID</td>
+						<td class="line_box" width="8%">이름</td>
+						<td class="line_box" width="14%">연락처</td>
+						<td class="line_box">이메일</td>
+						<td class="line_box" width="28%">메신저</td>
+						<td class="line_box" width="10%">내선번호</td>
+					</tr>
+					<!-- BLOCK BEGIN MEMBER_LOOP -->
+					<tr>
+						<td class="line_box"><input type="checkbox" name="adminIdx" value="{$adminIdx}"></td>
+						<td class="line_box" onclick="location.href='companyMemberW.asp?idx={$adminIdx}';" align=center style="cursor:pointer;">{$adminId}</td>
+						<td class="line_box" onclick="location.href='companyMemberW.asp?idx={$adminIdx}';" align=center style="cursor:pointer;">{$adminName}</td>
+						<td class="line_box" onclick="location.href='companyMemberW.asp?idx={$adminIdx}';" align=center style="cursor:pointer;">{$adminHphone}</td>
+						<td class="line_box" onclick="location.href='companyMemberW.asp?idx={$adminIdx}';" style="cursor:pointer;">{$adminEmail}</td>
+						<td class="line_box" onclick="location.href='companyMemberW.asp?idx={$adminIdx}';" style="cursor:pointer;">{$adminMsg}</td>
+						<td class="line_box" onclick="location.href='companyMemberW.asp?idx={$adminIdx}';" align=center style="cursor:pointer;">{$adminExtNum}</td>
+					</tr>
+					<!-- BLOCK END MEMBER_LOOP -->
+				</table>
+
+			</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>{$pageList}</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>
+				<a href="companyMemberW.asp"><img src="{$imgDir}/center_btn_write_ok.gif"></a> &nbsp;&nbsp;
+				<a href="javascript:void(del_fm_checkbox())"><img src="{$imgDir}/center_btn_delete.gif"></a>
+			</td>
+		</tr>
+	</table>
+	
+	</form>
+
+</div>

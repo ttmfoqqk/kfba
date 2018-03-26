@@ -1,0 +1,148 @@
+<!-- BLOCK BEGIN INFO -->
+- {$imgDir}     : 이미지 경로
+- {$BoardName}  : 게시판 이름
+- {$pagelist}   : 페이지 리스트
+
+-  검색
+- {$sName}    : 페이지 리스트
+- {$sId}      : 페이지 리스트
+- {$sTitle}   : 페이지 리스트
+- {$sIndate}  : 페이지 리스트
+- {$sOutdate} : 페이지 리스트
+
+- {$PageParams} : 페이지 파라미터
+
+<!-- BLOCK END INFO -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#check_all').click(function(){
+		if( $(this).is(":checked") ){
+			$(':checkbox[name="Idx"]').attr('checked', true);
+		}else{
+			$(':checkbox[name="Idx"]').attr('checked', false);
+		}
+	});
+})
+function del_fm_checkbox(){
+	if( $(":checkbox[name='Idx']:checked").length==0 ){
+		alert("삭제할 항목을 하나이상 체크해주세요.");
+		return;
+	}
+	if(confirm("삭제 하시겠습니까?")){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+</script>
+<div class="center_leftCont_wrap">
+		
+	<table cellpadding=0 cellspacing=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 게시판관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 게시판관리 > 협회자격취득자 </td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px"><img src="{$imgDir}/center_sub_search.gif"></td>
+		</tr>
+
+		<form name="sfm" method="get">
+		<input type="hidden" name="BoardKey" value="{$BoardKey}">
+
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td colspan=2 >
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">작성일</td>
+						<td class="line_box" colspan=3>
+						<input type="text" class="input" id="sIndate" name="sIndate" readonly value="{$sIndate}" size=15> 
+						<img src="{$imgDir}/center_icon_carender.gif" onclick="callCalendar(SearchForm.sIndate);"> - 
+						<input type="text" class="input" id="sOutdate" name="sOutdate" readonly value="{$sOutdate}" size=15> 
+						<img src="{$imgDir}/center_icon_carender.gif" onclick="callCalendar(SearchForm.sOutdate);"> 
+						<a href="javascript:date_input('sIndate','sOutdate','{$s1Day}','{$s1Day}')">[오늘]</a>
+						<a href="javascript:date_input('sIndate','sOutdate','{$s7Day}','{$s1Day}')">[7일전]</a>
+						<a href="javascript:date_input('sIndate','sOutdate','{$s30Day}','{$s1Day}')">[30일전]</a>
+						&nbsp;
+						<a href="javascript:date_input('sIndate','sOutdate','','')">[날짜초기화]</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">이름</td>
+						<td class="line_box"><input type="text" class="input" name="sName" value="{$sName}" style="width:100%"></td>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">아이디</td>
+						<td class="line_box" width="250"><input type="text" class="input" name="sId" value="{$sId}" style="width:100%"></td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td align=center colspan=2><input type="image" src="{$imgDir}/center_btn_Search.gif"></td>
+		</tr>
+
+		</form>
+		<tr>
+			<td colspan=2><img src="{$imgDir}/center_sub_search_data.gif"></td>
+		</tr>
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td colspan=2>
+				
+				<form id="fm" method="post" action="fJobP.asp">
+				<input type="hidden" name="actType" id="actType" value="">
+				<input type="hidden" name="sName" value="{$sName}">
+				<input type="hidden" name="sId" value="{$sId}">
+				<input type="hidden" name="sIndate" value="{$sIndate}">
+				<input type="hidden" name="sOutdate" value="{$sOutdate}">
+			
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr height="30" align=center bgcolor="f0f0f0">
+						<td class="line_box" style="padding:0px;" width="30"><input type="checkbox" id="check_all"></td>
+						<td class="line_box" width="50">NO</td>
+						<td class="line_box">작성자</td>
+						<td class="line_box" width="15%">직종</td>
+						<td class="line_box" width="15%">고용형태</td>
+						<td class="line_box" width="20%">학력</td>
+						<td class="line_box" width="15%">희망급여</td>
+						<td class="line_box" width="15%">등록일</td>
+					</tr>
+					<!-- BLOCK BEGIN BOARD_LOOP -->
+					<tr height="30" align=center>
+						<td class="line_box" style="padding:0px;" ><input type="checkbox" name="Idx" value="{$Idx}"></td>
+						<td class="line_box" onclick="location.href='fJobV.asp?{$PageParams}&idx={$Idx}';" style="cursor:hand">{$Number}</td>
+						<td class="line_box" onclick="location.href='fJobV.asp?{$PageParams}&idx={$Idx}';" style="cursor:hand">{$UserName}</td>
+						<td class="line_box" onclick="location.href='fJobV.asp?{$PageParams}&idx={$Idx}';" style="cursor:hand">{$Form}</td>
+						<td class="line_box" onclick="location.href='fJobV.asp?{$PageParams}&idx={$Idx}';" style="cursor:hand">{$Kind}</td>
+						<td class="line_box" onclick="location.href='fJobV.asp?{$PageParams}&idx={$Idx}';" style="cursor:hand">{$School}</td>
+						<td class="line_box" onclick="location.href='fJobV.asp?{$PageParams}&idx={$Idx}';" style="cursor:hand">{$Pay}</td>
+						<td class="line_box" onclick="location.href='fJobV.asp?{$PageParams}&idx={$Idx}';" style="cursor:hand">{$InData}</td>
+					</tr>
+					<!-- BLOCK END BOARD_LOOP -->
+					<!-- BLOCK BEGIN BOARD_LOOP_NODATA -->
+					<tr>
+						<td height="30" class="line_box" colspan="8" align=center>등록된 내용이 없습니다.</td>
+					</tr>
+					<!-- BLOCK END BOARD_LOOP_NODATA -->
+				</table>
+				</form>
+
+
+			</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>{$pagelist}</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>
+				<!--a href="customerW.asp?{$PageParams}"><img src="{$imgDir}/center_btn_write_ok.gif"></a-->
+				<img src="{$imgDir}/center_btn_delete.gif" style="cursor:pointer;" onclick="del_fm_checkbox()">
+			</td>
+		</tr>
+	</table>
+
+</div>

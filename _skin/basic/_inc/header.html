@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<TITLE> 한국외식음료개발원 </TITLE>
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<META http-equiv="imagetoolbar" content="no">
+	<META NAME="Generator" CONTENT="EditPlus">
+	<META NAME="Author" CONTENT="">
+	<META NAME="Keywords" CONTENT="">
+	<META NAME="Description" CONTENT="">
+	<script type="text/javascript" src="../_lib/js/1.4.2.jquery.js"></script>
+	<script type="text/javascript" src="../_lib/js/jquery.printElement.min.js"></script>
+	<script type="text/javascript" src="../_lib/js/common.js"></script>
+	<script type="text/javascript" src="../_smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<link href="../_lib/css/common.css" rel="stylesheet" type="text/css" />
+	<link href="../_skin/basic/_inc/css/kfba.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body>
+<script type="text/javascript">
+	
+$(document).ready(function(){
+	/* 네비게이션 */
+	var top_menu_open = 1;
+	var top_menu_state = 1;	
+	var open_menu = $('#top_navigation_sub');
+	$('#top_navigation > ul').hover(
+		function(){ top_menu_open = 0; },
+		function(){ top_menu_open = 1; }
+	);
+	open_menu.find('div.ulwrap').hover(
+		function(){ top_menu_open = 0; },
+		function(){ top_menu_open = 1; }
+	);
+	var timer = setInterval(setTopmenuOpen, 30);
+	function setTopmenuOpen(){
+		if(top_menu_open==0 && top_menu_state==1){
+			open_menu.slideDown(100,function(){top_menu_state=0;});
+		}else if(top_menu_open==1 && top_menu_state==0){
+			open_menu.slideUp(100,function(){top_menu_state=1;});
+		}
+	}
+	/* 네비게이션 */
+	/* 네비게이션 서브메뉴 li 스타일 */
+	open_menu.find('li').hover(
+		function(){
+			$(this).attr('class','on').find('a').css('color','#ffffff');
+		},
+		function(){
+			$(this).attr('class','').find('a').css('color','#3c3c3c');
+		}
+	);
+	open_menu.find('li').click(function(){
+		location.href = $(this).find('a').attr('href');
+	});
+	/* 서브비주얼 */
+	$Contants_visual = $('#Contants_visual');
+	$Contants_visual.fadeIn(2000);
+
+	var minWidth  = 1000;
+	var minHeight = 144;
+
+	if( $Contants_visual.height() > minHeight || $Contants_visual.width() > minWidth ){
+		if($Contants_visual.width() > $Contants_visual.height()*12){
+			$Contants_visual.find('img').width( $Contants_visual.width() );
+			$Contants_visual.find('img').height( $Contants_visual.width()/12 );
+
+			$Contants_visual.find('img').css('margin-left' , '-'+ ($Contants_visual.find('img').width()/2) +'px' );
+		}else{
+			$Contants_visual.find('img').width( $Contants_visual.height()*12 );
+			$Contants_visual.find('img').height( $Contants_visual.height() );
+
+			$Contants_visual.find('img').css('margin-left' , '-'+ ($Contants_visual.find('img').width()/2) +'px' );
+		}
+	}
+	
+	/* 왼쪽메뉴 마지막 li 보더삭제 */
+	$('#leftMenu_wrap ul li:last').css('border-bottom','0px');
+})
+
+$(window).resize(function(){
+	var minWidth  = 1000;
+	var minHeight = 144;
+	if( $Contants_visual.height() > minHeight || $Contants_visual.width() > minWidth ){
+		if($Contants_visual.width() > $Contants_visual.height()*12){
+			$Contants_visual.find('img').width( $Contants_visual.width() );
+			$Contants_visual.find('img').height( $Contants_visual.width()/12 );
+
+			$Contants_visual.find('img').css('margin-left' , '-'+ ($Contants_visual.find('img').width()/2) +'px' );
+		}else{
+			$Contants_visual.find('img').width( $Contants_visual.height()*12 );
+			$Contants_visual.find('img').height( $Contants_visual.height() );
+
+			$Contants_visual.find('img').css('margin-left' , '-'+ ($Contants_visual.find('img').width()/2) +'px' );
+		}
+	}
+})
+
+
+
+</script>
+
+<div id="top_wrap">
+	<div class="top_navi_box">
+		<!-- 로고 -->
+		<div class="logo_area"><a href="/"><img src="{$imgDir}/front_logo.jpg" style="display:inline-block;"></a></div>
+		<!-- 로그인박스 -->
+		<div class="sub_area">
+			<!-- BLOCK BEGIN LOGIN_BOX -->
+			<ul>
+				<li><a href="../member/login.asp"><img src="{$imgDir}/btn_topLogin.jpg" alt="LOGIN"></a></li>
+				<li><a href="../member/agree.asp"><img src="{$imgDir}/btn_topJoin.jpg" alt="JOIN"></a></li>
+				<li><a href="../member/siteMap.asp"><img src="{$imgDir}/btn_topSitemap.jpg" alt="SITEMAP"></a></li>
+			</ul>
+			<!-- BLOCK END LOGIN_BOX -->
+
+			<!-- BLOCK BEGIN LOGOUT_BOX -->
+			<ul>
+				<li><a href="../member/logout.asp"><img src="{$imgDir}/btn_topLogOut.jpg" alt="LOGIN"></a></li>
+				<li><a href="../mypage/"><img src="{$imgDir}/btn_topMypage.jpg" alt="JOIN"></a></li>
+				<li><a href="../member/siteMap.asp"><img src="{$imgDir}/btn_topSitemap.jpg" alt="SITEMAP"></a></li>
+			</ul>
+			<!-- BLOCK END LOGOUT_BOX -->
+		</div>
+
+	</div>
+</div>
+
+<!-- 상단메뉴 -->
+
+<div id="top_navi_wrap">
+	
+	<div id="top_navi_bg_top"><!-- --></div>
+	<div id="top_navigation">
+		<ul class="titleMenu">
+			<li><a href="../about/"><img src="{$imgDir}/menu_top1_off.jpg" alt="KFBA" class="rollover"></a></li>
+			<li><a href="../application/"><img src="{$imgDir}/menu_top2_off.jpg" alt="응시안내" class="rollover"></a></li>
+			<li><a href="../reference/"><img src="{$imgDir}/menu_top3_off.jpg" alt="한국외식음료개발원" class="rollover"></a></li>
+			<li><a href="../map/write.asp"><img src="{$imgDir}/menu_top6_off.jpg" alt="검정장등록 및 조회" class="rollover"></a></li>
+			<li><a href="../comunity/"><img src="{$imgDir}/menu_top5_off.jpg" alt="커뮤니티" class="rollover"></a></li>
+		</ul>
+	</div>
+	
+	<!-- 서브메뉴 -->
+	<div id="top_navigation_sub">
+		<div class="ulwrap">
+		
+			<ul class="subMenu firstUl" style="width:198px;">
+				<li><a href="../about/">인사말</a></li>
+				<li><a href="../about/outline.asp">개발원소개</a></li>
+				<li><a href="../about/history.asp">연혁</a></li>
+				<li><a href="../about/operation.asp">운영자격</a></li>
+				<li><a href="../about/organization.asp">조직도</a></li>
+				<li><a href="../about/location.asp">오시는길</a></li>
+			</ul>
+
+			<ul class="subMenu" style="width:199px;">
+				<li><a href="../application/?applicationKey=56">커피바리스타</a></li>
+				<!--li><a href="../application/?applicationKey=57">칵테일조주사</a></li-->
+				<li><a href="../application/?applicationKey=58">믹솔로지스트</a></li>
+				<li><a href="../application/?applicationKey=59">와인소믈리에</a></li>
+				<li><a href="../application/?applicationKey=61">외식경영관리사</a></li>
+				<li><a href="../application/?applicationKey=62">식음료관리사</a></li>
+
+				<li><a href="../application/?applicationKey=89">케이크디자이너</a></li>
+				<!--<li><a href="../application/?applicationKey=90">티소믈리에</a></li>-->
+				<li><a href="../application/?applicationKey=91">핸드드립 마스터</a></li>
+				<li><a href="../application/?applicationKey=60">라떼아트 마스터</a></li>
+				<li><a href="../application/?applicationKey=92">홈카페마스터</a></li>
+			</ul>
+
+			<ul class="subMenu" style="width:199px;">
+				<li><a href="../reference/?BoardKey=4">커피</a></li>
+				<li><a href="../reference/?BoardKey=6">와인</a></li>
+				<li><a href="../reference/?BoardKey=8">칵테일</a></li>
+				<li><a href="../reference/?BoardKey=10">전통주</a></li>
+				<li><a href="../reference/?BoardKey=12">외식</a></li>
+			</ul>
+
+			<ul class="subMenu" style="width:199px;">
+				<li><a href="../map/write.asp">검정장 등록</a></li>
+				<li><a href="../map/">검정장 조회</a></li>
+			</ul>
+
+			<ul class="subMenu" style="width:199px;">
+				<li><a href="../comunity/?BoardKey=1">공지사항</a></li>
+				<li><a href="../comunity/?BoardKey=2">질문과답변</a></li>
+				<li><a href="../comunity/?BoardKey=3">자주묻는질문</a></li>
+				<li><a href="../comunity/?BoardKey=14">포토갤러리</a></li>
+				<li><a href="../comunity/fStaffL.asp">채용</a></li>
+				<li><a href="../comunity/fJobL.asp">개발원 자격 취득자</a></li>
+				<li><a href="../judge/">심사위원Pool등록</a></li>
+			</ul>
+
+		</div>
+		<div id="top_navi_bg_bottom"><!--  --></div>
+	</div>
+	<!-- 서브메뉴 -->
+	
+	
+</div>
+
+<!-- 상단메뉴 -->
+
+<div id="middle_wrap">
+	

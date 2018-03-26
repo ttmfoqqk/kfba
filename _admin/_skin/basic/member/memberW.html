@@ -1,0 +1,223 @@
+<!-- BLOCK BEGIN INFO -->
+- {$pageNo}       : page
+- {$actType}      : 페이지 모드
+- {$imgDir}       : 이미지 경로
+- {$UserIdx}      : 키
+- {$UserId}       : 아이디
+- {$UserName}     : 이름
+- {$UserBirth1}   : 생년
+- {$UserBirth2}   : 생월
+- {$UserBirth3}   : 생일
+- {$UserHphone1}  : 모바일1
+- {$UserHphone2}  : 모바일2
+- {$UserHphone3}  : 모바일3
+- {$UserSmsFg}    : 문자발송동의
+- {$UserEmail}    : 이메일
+- {$UserEmailFg}  : 이메일발송 동의
+- {$UserEmail1}   : 이메일1
+- {$Useremail2}   : 이메일2
+- {$UserZipcode1} : 우편번호1
+- {$UserZipcode2} : 우편번호2
+- {$UserAddr1}    : 주소
+- {$UserAddr2}    : 상세주소
+- {$UserIndate}   : 가입일자
+- {$UserOutdate}  : 탈퇴일자
+- {$UserDelFg}    : 탈퇴여부
+- {$UserBigo}     : 비고
+
+- {$hphoneOption} : 핸드폰 콤보박스 옵션
+- {$mailOption}   : 이메일 콤보박스 옵션
+- {$delfgOption}  : 사용여부 콤보박스 옵션
+
+<!-- BLOCK END INFO -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#emailWrite').click(function(){
+		changeEmailInput();
+	});
+	$('#UserEmail2').change(function(){
+		$('#UserEmail3').val( $(this).val() );
+	})
+})
+
+function changeEmailInput(){
+	if( $('#emailWrite').is(":checked") ){
+		$('#UserMail2').hide();
+		$('#UserMail3').show();
+	}else{
+		$('#UserMail2').show();
+		$('#UserMail3').hide();
+	}
+}
+
+function chec_fm(){
+	if( !trim( $('#UserId').val() ) ){
+		alert('아이디를 입력하세요.');return false;
+	}
+	if( $('#actType').val() == 'INSERT' && !trim( $('#UserPass').val() ) ){
+		alert('비밀번호를 입력하세요.');return false;
+	}
+	if( !trim( $('#UserName').val() ) ){
+		alert('이름을 입력하세요.');return false;
+	}
+	if( !trim( $('#UserBirth1').val() ) || !trim( $('#UserBirth2').val() ) || !trim( $('#UserBirth3').val() ) ){
+		alert('생년월일을 입력하세요.');return false;
+	}
+	if( !trim( $('#UserHphone1').val() ) || !trim( $('#UserHphone2').val() ) || !trim( $('#UserHphone3').val() ) ){
+		alert('핸드폰 번호를 입력해주세요.');return false;
+	}
+	if( !trim( $('#UserEmail1').val() ) || !trim( $('#UserEmail3').val() ) ){
+		alert('이메일을 입력하세요.');return false;
+	}
+	/*if( !trim( $('#UserZipcode1').val() ) || !trim( $('#UserZipcode2').val() ) || !trim( $('#UserAddr1').val() ) || !trim( $('#UserAddr2').val() ) ){
+		alert('주소를 입력하세요.');return false;
+	}*/
+	$('#btn_area').html("처리중입니다.");
+	$('#fm').submit();
+
+
+}
+function del_fm_checkbox(){
+	if( confirm("삭제 하시겠습니까?") ){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+
+
+</script>
+<div class="center_leftCont_wrap">
+
+	<form name="fm" id="fm" method="post" action="memberP.asp">
+	<input type="hidden" name="actType" id="actType" value="{$actType}">
+	<input type="hidden" name="UserIdx" id="UserIdx" value="{$UserIdx}">
+	
+	<input type="hidden" name="pageNo" id="pageNo" value="{$pageNo}">
+	<input type="hidden" name="sIndate" id="sIndate" value="{$sIndate}">
+	<input type="hidden" name="sOutdate" id="sOutdate" value="{$sOutdate}">
+	<input type="hidden" name="sUserId" id="sUserId" value="{$sUserId}">
+	<input type="hidden" name="sUserName" id="sUserName" value="{$sUserName}">
+	<input type="hidden" name="sHphone3" id="sHphone3" value="{$sHphone3}">
+	<input type="hidden" name="sUserBirth" id="sUserBirth" value="{$sUserBirth}">
+	<input type="hidden" name="sState" id="sState" value="{$sState}">
+	
+	<table cellpadding=0 cellspacing=0 border=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 회원관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 회원관리 > 회원관리</td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px">정보 {$actType}</td>
+		</tr>
+		<tr>
+			<td colspan=2>
+				<table cellpadding=0 cellspacing=0 width=100% class="line_box_table">
+					<!-- BLOCK BEGIN HIDDEN_INDATE -->
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0" width="115">가입일자</td>
+						<td class="line_box">{$UserIndate}</td>
+					</tr>
+					<!-- BLOCK END HIDDEN_INDATE -->
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0" width="115">ID</td>
+						<td class="line_box"><input type="text" id="UserId" name="UserId" class="input" value="{$UserId}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">비밀번호</td>
+						<td class="line_box"><input type="password" id="UserPass" name="UserPass" class="input" value="" maxlength="50">
+							<!-- BLOCK BEGIN HIDDEN_PWD_TXT -->
+							<span style="color:red;">* 변경시에만 작성해주세요.</span>
+							<!-- BLOCK END HIDDEN_PWD_TXT -->
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">이름</td>
+						<td class="line_box"><input type="text" id="UserName" name="UserName" class="input" value="{$UserName}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">생년월일</td>
+						<td class="line_box">
+							<input type="text" id="UserBirth1" name="UserBirth1" class="input" value="{$UserBirth1}" maxlength="4" size="4">년
+							<input type="text" id="UserBirth2" name="UserBirth2" class="input" value="{$UserBirth2}" maxlength="2" size="2">월
+							<input type="text" id="UserBirth3" name="UserBirth3" class="input" value="{$UserBirth3}" maxlength="2" size="2">일
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">핸드폰</td>
+						<td class="line_box">
+							<select id="UserHphone1" name="UserHphone1" style="width:70px;">{$hphoneOption}</select> - 
+							<input type="text" id="UserHphone2" name="UserHphone2" maxlength=4 class="input" size=4 value="{$UserHphone2}" maxlength="4"> - 
+							<input type="text" id="UserHphone3" name="UserHphone3" maxlength=4 class="input" size=4 value="{$UserHphone3}" maxlength="4">
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">E-Mail</td>
+						<td class="line_box">
+							<input type="text" id="UserEmail1" name="UserEmail1" class="input" size=12 maxlength="120" value="{$UserEmail1}"> @ 
+							<input type="text" id="UserEmail3" name="UserEmail3" class="input" size=12 maxlength="80"  value="{$UserEmail2}">
+							<select id="UserEmail2" name="UserEmail2">{$mailOption}</select>
+							<!--input type="checkbox" id="emailWrite"> 직접입력-->
+						</td>
+					</tr>
+					<!--<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">주소</td>
+						<td class="line_box">
+							<input type="text" id="UserZipcode1" name="UserZipcode1" class="input" value="{$UserZipcode1}" maxlength="4" size="3" readonly onclick="openDaumPostcode()"> - 
+							<input type="text" id="UserZipcode2" name="UserZipcode2" class="input" value="{$UserZipcode2}" maxlength="4" size="3" readonly onclick="openDaumPostcode()">
+							<input type="button" value="우편번호" onclick="openDaumPostcode()">
+							<br>
+							<input type="text" id="UserAddr1" name="UserAddr1" class="input" value="{$UserAddr1}" maxlength="200" style="width:100%;" readonly><br>
+							<input type="text" id="UserAddr2" name="UserAddr2" class="input" value="{$UserAddr2}" maxlength="200" style="width:100%;">
+						</td>
+					</tr>-->
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">비고</td>
+						<td class="line_box"><textarea id="UserBigo" name="UserBigo" style="width:100%;height:80px;">{$UserBigo}</textarea></td>
+					</tr>
+					<!-- BLOCK BEGIN HIDDEN_DELFG -->
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0" width="115">사용여부</td>
+						<td class="line_box"><select id="UserDelFg" name="UserDelFg">{$delfgOption}</select></td>
+					</tr>
+					<!-- BLOCK END HIDDEN_DELFG -->
+				</table>
+
+			</td>
+		</tr>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2 id="btn_area">
+				<a href="javascript:chec_fm()"><img src="{$imgDir}/center_btn_write_ok.gif"></a> &nbsp;&nbsp;
+				<a href="javascript:void(del_fm_checkbox())"><img src="{$imgDir}/center_btn_delete.gif"></a>
+			</td>
+		</tr>
+	</table>
+	
+	</form>
+
+</div><!--a href="test.asp?UserIdx={$UserIdx}&UserId={$UserId}&UserName={$UserName}">.</a-->
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
+<script>
+    function openDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                // 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
+                document.getElementById('UserZipcode1').value = data.postcode1;
+                document.getElementById('UserZipcode2').value = data.postcode2;
+               // document.getElementById('UserAddr1').value = data.address;
+
+                //전체 주소에서 연결 번지 및 ()로 묶여 있는 부가정보를 제거하고자 할 경우,
+                //아래와 같은 정규식을 사용해도 된다. 정규식은 개발자의 목적에 맞게 수정해서 사용 가능하다.
+                var addr = data.address.replace(/(\s|^)\(.+\)$|\S+~\S+/g, '');
+                //document.getElementById('addr').value = addr;
+				document.getElementById('UserAddr1').value = addr;
+
+                document.getElementById('UserAddr2').focus();
+            }
+        }).open();
+    }
+</script>

@@ -1,0 +1,47 @@
+<!-- #include file = "../_skin/basic/comunity/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/comunity/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_comunity_04.jpg"></div>
+				<div class="contPageNavi">H > 커뮤니티 > <b>채용</b></div>
+			</div>
+		
+			
+			<h4 class="IconArrow">채용</h4>
+			<div id="board_wrap">
+				
+				<form name="fm" id="fm" action="fStaffP.asp" method="POST">
+				<input type="hidden" name="Idx" id="Idx" value="{$Idx}">
+				<input type="hidden" name="actType" id="actType" value="{$actType}">
+				<input type="hidden" name="pageNo" value="{$pageNo}">
+				<input type="hidden" name="sName" value="{$sName}">
+				<input type="hidden" name="sId" value="{$sId}">
+				<input type="hidden" name="sTitle" value="{$sTitle}">
+				<input type="hidden" name="sContant" value="{$sContant}">
+				<input type="hidden" name="sWord" value="{$sWord}">
+
+				<table cellpadding=0 cellspacing=0 border=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">비밀번호</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="password" class="INPUT" id="Pwd" name="Pwd" maxlength="50" ></td>
+					</tr>
+				</table>
+
+				<div class="btn_area">
+					<a href="fStaffL.asp?{$PageParams}"><img src="{$imgDir}/board/btn_list.jpg" align=left></a>
+					<input type="image" src="{$imgDir}/board/btn_ok.jpg">
+					<a href="javascript:history.go(-1);"><img src="{$imgDir}/board/btn_cancle.jpg"></a>
+				</div>
+
+				</form>
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

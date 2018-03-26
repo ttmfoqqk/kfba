@@ -1,0 +1,63 @@
+<HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+<HEAD>
+	<TITLE> 심사위원 페이지 입니다. </TITLE>
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<META http-equiv="imagetoolbar" content="no">
+	<META NAME="Generator" CONTENT="EditPlus">
+	<META NAME="Author" CONTENT="">
+	<META NAME="Keywords" CONTENT="">
+	<META NAME="Description" CONTENT="">
+	<script type="text/javascript" src="../../_lib/js/1.4.2.jquery.js"></script>
+	<script type="text/javascript" src="../../_lib/js/common.js"></script>
+	<script type="text/javascript" src="../../_lib/js/jquery.printElement.min.js"></script>
+	<script type="text/javascript" src="../../_smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<link href="../../_lib/css/common.css" rel="stylesheet" type="text/css" />
+	<link href="../../_admin/_skin/basic/_inc/css/admin.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+		function GofamilySite(){
+			var httpUrl =  $('#familySite').val();
+			if(!httpUrl){
+				alert('패밀리 사이트를 선택해주세요.');return false;
+			}
+			window.open(httpUrl);
+		}
+	</script>
+</HEAD>
+<body>
+<table cellpadding=0 cellspacing=0 width="990" align=center>
+	<tr>
+		<td width="220" rowspan=2><img src="/_skin/basic/images/logo.jpg" width=200 height=85 alt="로고"></td>
+		<td height="30" align=right>
+			<a href="../member/logout.asp"><img src="{$imgDir}/top_btn_logout.gif" align=absmiddle></a>
+			<select class="input" id="familySite" align=absmiddle>
+				<option value="">::: family Site :::</option>
+				<option value="http://kfbd.co.kr/">한국외식음료개발원</option>
+			</select>
+			<a href="javascript:void(GofamilySite())"><img src="{$imgDir}/top_btn_site.gif" align=absmiddle></a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table cellpadding=0 cellspacing=0>
+				<!--tr>
+					<td width="160"><a href="../company/companyAgreeV.asp"><img src="{$imgDir}/top_01.gif"></a></td>
+					<td width="140"><a href="../programs/programsL.asp"><img src="{$imgDir}/top_02.gif"></a></td>
+					<td width="130"><a href="../application/applicationL.asp"><img src="{$imgDir}/top_03.gif"></a></td>
+					<td width="138"><a href="../member/memberL.asp"><img src="{$imgDir}/top_04.gif"></a></td>
+					<td><a href="../customer/customerL.asp"><img src="{$imgDir}/top_05.gif"></a></td>
+				</tr-->
+				<tr>
+					<td class="top_menu_item"><a href="../application/applicationL.asp"><b class="top_menu_item_over">응시관리</b></td>
+					<td>[{$Judge_Id}] {$Judge_Name}</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<div style="height:7px;background-color:#0172c9;overflow:hidden;"><!----></div>
+<div style="height:2px;background-color:#96c6fc;overflow:hidden;"><!----></div>
+
+<center>
+<div class="center_wrap">

@@ -1,0 +1,194 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#StaffCnt').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+})
+function check(){
+	if( !trim($('#Title').val()) ){
+		alert('제목을 작성해주세요.');return false;
+	}
+	if( !trim($('#CompanyName').val()) ){
+		alert('기관명을 작성해주세요.');return false;
+	}
+	if( !trim($('#OwnerName').val()) ){
+		alert('대표자명을 작성해주세요.');return false;
+	}
+	if( !trim($('#ManagerName').val()) ){
+		alert('채용담당자명을 작성해주세요.');return false;
+	}
+	if( !trim($('#Dates').val()) ){
+		alert('모집기간을 작성해주세요.');return false;
+	}
+	if( !trim($('#Pay').val()) ){
+		alert('급여를 작성해주세요.');return false;
+	}
+	if( !trim($('#StaffCnt').val()) ){
+		alert('모집인원을 작성해주세요.');return false;
+	}
+	if( !$('#Form').val() ){
+		alert('근무형태를 선택해주세요.');return false;
+	}
+	if( !$('#Kind').val() ){
+		alert('직종을 선택해주세요.');return false;
+	}
+	if( !trim($('#Tel').val()) ){
+		alert('연락처를 작성해주세요.');return false;
+	}
+	if( !trim($('#Email').val()) ){
+		alert('이메일을 작성해주세요.');return false;
+	}
+	if( !trim($('#Addr').val()) ){
+		alert('주소를 작성해주세요.');return false;
+	}
+	if( !trim($('#WorkArea').val()) ){
+		alert('근무지역을 작성해주세요.');return false;
+	}
+	if( !trim($('#WorkTime').val()) ){
+		alert('근무시간을 작성해주세요.');return false;
+	}
+	if( !trim($('#Method').val()) ){
+		alert('접수방법을 작성해주세요.');return false;
+	}
+	if( !$('#insure').val() ){
+		alert('4대보험 여부를 선택해주세요.');return false;
+	}
+	if( !trim($('#Pwd').val()) ){
+		alert('비밀번호를 입력해주세요.');return false;
+	}
+	$('#fm').submit()
+}
+</script>
+<!-- #include file = "../_skin/basic/comunity/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/comunity/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_comunity_04.jpg"></div>
+				<div class="contPageNavi">H > 커뮤니티 > <b>채용</b></div>
+			</div>
+			
+			<h4 class="IconArrow">채용</h4>
+			<div id="board_wrap">
+
+				
+				<form name="fm" id="fm" method="POST" action="fStaffP.asp">
+				<input type="hidden" name="actType" value="{$actType}">
+				<input type="hidden" name="Idx" value="{$Idx}">
+				
+				<input type="hidden" name="pageNo" value="{$pageNo}">
+				<input type="hidden" name="sName" value="{$sName}">
+				<input type="hidden" name="sId" value="{$sId}">
+				<input type="hidden" name="sTitle" value="{$sTitle}">
+				<input type="hidden" name="sContant" value="{$sContant}">
+				<input type="hidden" name="sWord" value="{$sWord}">
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">제목</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="Title" id="Title" value="{$Title}" style="width:600px;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">기관명</td>
+						<td class="cell_view_cont" width="150"><input type="text" class="INPUT" name="CompanyName" id="CompanyName" value="{$CompanyName}" style="width:200px;" maxlength="200"></td>
+						<td class="cell_view_title" width="80">대표자명</td>
+						<td class="cell_view_cont cell_no_rightLine" width="150"><input type="text" class="INPUT" name="OwnerName" id="OwnerName" value="{$OwnerName}" style="width:200px;" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">채용담당자명</td>
+						<td class="cell_view_cont"><input type="text" class="INPUT" name="ManagerName" id="ManagerName" value="{$ManagerName}" style="width:200px;" maxlength="50"></td>
+						<td class="cell_view_title">모집기간</td>
+						<td class="cell_view_cont cell_no_rightLine">
+							<input type="text" class="INPUT" name="Dates" id="Dates" value="{$Dates}" readonly>
+							<a href="javascript:void( callCalendar(fm.Dates) )"><img src="{$imgDir}/center_icon_carender.gif" align=absmiddle></a>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">급여</td>
+						<td class="cell_view_cont" ><input type="text" class="INPUT" name="Pay" id="Pay" value="{$Pay}" style="width:200px;" maxlength="200"></td>
+						<td class="cell_view_title">모집인원</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="text" class="INPUT" name="StaffCnt" id="StaffCnt" value="{$StaffCnt}" style="width:50px;" maxlength="50">명</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">근무형태</td>
+						<td class="cell_view_cont"><select id="Form" name="Form">{$FormOption}</select></td>
+						<td class="cell_view_title">직종</td>
+						<td class="cell_view_cont cell_no_rightLine"><select id="Kind" name="Kind">{$KindOption}</select></td>
+						
+					</tr>
+					<tr>
+						<td class="cell_view_title">홈페이지</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>http://<input type="text" class="INPUT" name="HomePage" id="HomePage" value="{$HomePage}" style="width:565px;" maxlength="200"></a></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">전화</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="Tel" id="Tel" value="{$Tel}" style="width:600px;" maxlength="100"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">팩스</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="Fax" id="Fax" value="{$Fax}" style="width:600px;" maxlength="100"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">이메일</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="Email" id="Email" value="{$Email}" style="width:600px;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">주소</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="Addr" id="Addr" value="{$Addr}" style="width:600px;" maxlength="200"></td>
+					</tr>
+					
+					<tr>
+						<td class="cell_view_title">근무지역</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="WorkArea" id="WorkArea" value="{$WorkArea}" style="width:600px;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">근무시간</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="WorkTime" id="WorkTime" value="{$WorkTime}" style="width:600px;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">자격요건</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="Qualify" id="Qualify" value="{$Qualify}" style="width:600px;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">준비서류</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="Files" id="Files" value="{$Files}" style="width:600px;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">접수방법</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="Method" id="Method" value="{$Method}" style="width:600px;" maxlength="200"></td>
+					</tr>
+					
+					<tr>
+						<td class="cell_view_title">4대보험 여부</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><select id="insure" name="insure">{$insureOption}</select></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">비고</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3 style="height:100px;padding-top:10px;line-height:160%;" valign=top>
+							<textarea id="Bigo" name="Bigo" style="width:600px;height:180px;">{$Bigo}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">비밀번호</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="password" class="INPUT" id="Pwd" name="Pwd" maxlength="50" ></td>
+					</tr>
+				</table>
+
+				</form>
+
+				<div class="btn_area">
+					<a href="fStaffL.asp?{$PageParams}"><img src="{$imgDir}/board/btn_list.jpg" align=left></a>
+				<!-- BLOCK BEGIN BOARD_BTN_WRITE -->
+					<a href="javascript:void(check());"><img src="{$imgDir}/board/btn_write.jpg"></a>
+				<!-- BLOCK END BOARD_BTN_WRITE -->
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

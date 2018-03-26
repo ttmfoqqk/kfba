@@ -1,0 +1,173 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('div.PhotosArea > img').css('cursor','pointer');
+	$('div.PhotosArea > img').click(function(){
+		var imgSrc    = $(this).attr('src');
+		html = '<div id="BigImgPup" style="" onclick="$(this).remove();"><img src="'+imgSrc+'"></div>';
+		$('body').append(html);
+		
+		$('#BigImgPup > img').load(function(){
+			var cWidth  = $(this).width();
+			var cHeight = $(this).height();
+			var w = cWidth > 1000 ? 1000 : cWidth;
+
+			$(this).css('width',w);
+
+			var left = ( $(window).scrollLeft() + ($(window).width() - $(this).width()) / 2 );
+			var top = ( $(window).scrollTop() + ($(window).height() - $(this).height()) / 2 );
+
+			$('#BigImgPup').css({ 'position':'absolute' , 'top':top+'px' , 'left':left+'px', 'cursor':'pointer' , 'border':'2px solid #000000' , 'z-index':'500' , 'padding':'5px' , 'background-color':'#ffffff' });
+		});
+	})
+
+	$("#printBtn").click(function() {
+		$('#photo_modify_btn').hide();
+		printElem({
+			printMode:'popup',
+			pageTitle:'수험표 출력',
+			leaveOpen:true,
+			overrideElementCSS:[
+				 {href:'/_lib/css/common.css',media:''}
+				,{href:'/_skin/basic/_inc/css/kfba.css',media:''}
+			]
+		});
+		$('#photo_modify_btn').show();
+	}).css('cursor','pointer');
+})
+
+
+function printElem(options) {
+	$("#printArea").printElement(options);
+}
+
+
+function myPrint(){
+	alert('준비중입니다.');
+}
+
+function changePhotos(){
+	if(!$('#PhotoName').val()){
+		alert('사진을 등록해주세요.');
+		return false;
+	}
+	if( fileTypeCheck( $('#PhotoName').val() ) != 'jpg' && fileTypeCheck( $('#PhotoName').val() ) != 'jpeg' ){
+		alert("사진은 JPG,JPEG 파일만 등록해주세요.");return false;
+	}
+	$('#fm').submit();
+}
+</script>
+<!-- #include file = "../_skin/basic/mypage/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/mypage/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_mypage_01.jpg"></div>
+				<div class="contPageNavi">H > 마이페이지 > <b>응시정보</b></div>
+			</div>
+
+			
+			
+			<!-- 프린트 영역 -->
+			<div id="printArea" style="height:100%;">
+				<div id="board_wrap">
+				<h4 class="IconArrow" style="margin-top:0px;">수험표</h4>
+				
+					<table cellpadding=0 cellspacing=0 width="740" class="table_wrap">
+						<tr>
+							<td class="cell_view_title" width="80">성명</td>
+							<td class="cell_view_cont">{$UserName}</td>
+							<td class="cell_view_cont cell_no_rightLine" rowspan=8 width="170" align=center>
+								<div class="PhotosArea">{$Photo}</div>
+								<div id="photo_modify_btn">
+									<form name="fm" id="fm" method="POST" action="PhotosProc.asp" enctype="multipart/form-data">
+										<input type="hidden" name="oldPhotoName" value="{$oldPhotoName}">
+										<input type="hidden" name="GoUrl" id="GoUrl" value="{$GoUrl}">
+										<input type="file" name="PhotoName" id="PhotoName" style="width:150px;">									
+										<a href="javascript:void(changePhotos());"><img src="../_skin/basic/images/board/btn_modify.jpg" style="margin-top:10px;"></a>
+									</form>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">생년월일</td>
+							<td class="cell_view_cont">{$UserBirth}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">수검번호</td>
+							<td class="cell_view_cont">{$Snumber}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">자격종목</td>
+							<td class="cell_view_cont">{$ProgramName}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">검정시행일</td>
+							<td class="cell_view_cont">{$OnData}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">금액</td>
+							<td class="cell_view_cont">{$Pay}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">결제방법</td>
+							<td class="cell_view_cont">{$PayModeTxt}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">진행상황</td>
+							<td class="cell_view_cont">{$State}</td>
+						</tr>
+					</table>
+
+					<h4 class="IconArrow">검정장 정보</h4>
+
+					<table cellpadding=0 cellspacing=0 width="740" class="table_wrap">
+						<tr>
+							<td class="cell_view_title" width="80">이름</td>
+							<td class="cell_view_cont cell_no_rightLine">{$AreaName}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">주소</td>
+							<td class="cell_view_cont cell_no_rightLine">{$AreaAddr}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">연락처</td>
+							<td class="cell_view_cont cell_no_rightLine">{$AreaTel}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">안내</td>
+							<td class="cell_view_cont cell_no_rightLine">{$AreaInfo}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">웹URL</td>
+							<td class="cell_view_cont cell_no_rightLine">{$AreaWebUrl}</td>
+						</tr>
+						<tr>
+							<td class="cell_view_title">약도</td>
+							<td class="cell_view_cont cell_no_rightLine" valign=top><div class="PhotosArea">{$AreaMap}</a></td>
+						</tr>
+					</table>
+
+				
+
+					
+				</div>
+			
+			
+
+			</div>
+			<!-- 프린트 영역 -->
+
+			<div style="text-align:right;padding:20px 0px 10px 0px;">
+				<a href="index.asp?{$PageParams}"><img src="../_skin/basic/images/board/btn_list.jpg" align=left></a>
+				<img src="../_skin/basic/images/btn_print.jpg" align=right id="printBtn">
+			</div>
+			
+
+			
+
+		</div>
+	</div>
+</div>

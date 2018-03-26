@@ -1,0 +1,82 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#sOnDate').change(function(){
+		$('#fm').submit();
+	})
+	$('#sPcode').change(function(){
+		$('#fm').submit();
+	})
+	$('#sKind').change(function(){
+		$('#fm').submit();
+	})
+	$('#sClass').change(function(){
+		$('#fm').submit();
+	})
+})
+</script>
+<!-- #include file = "../_skin/basic/application/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/application/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_application_all.jpg"></div>
+				<div class="contPageNavi">H > 응시안내 및 접수 > <b>응시일정 조회</b></div>
+			</div>
+			
+
+			<h4 class="IconArrow">응시일정 조회</h4>
+			
+			<form name="fm" id="fm" method="GET">
+			<div style="margin-bottom:10px;text-align:right;">				
+				검정과목 : <select id="sPcode" name="sPcode">{$codeOption}</select>				
+				<select id="sKind" name="sKind">{$KindOption}</select>
+				<select id="sClass" name="sClass">{$ClassOption}</select>
+				검정 시행월 : <select id="sOnDate" name="sOnDate">{$SearchOnDateOption}</select>
+			</div>
+			</form>
+
+			<div id="board_wrap">
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_title">검정장</td>
+						<td class="cell_title" width="150">검정과목</td>
+						<td class="cell_title" width="150">검정 시행일자</td>
+						<td class="cell_title" width="150">검정 접수기간</td>
+						<td class="cell_title" width="110">정원</td>
+						<!--td class="cell_title" width="70">금액</td-->
+					</tr>
+					
+					<!-- BLOCK BEGIN BOARD_LOOP -->
+					<tr>
+						<td class="cell_cont"><a href="{$Link}">{$AreaName}</a></td>
+						<td class="cell_cont"><a href="{$Link}">{$ProgramName}</a></td>
+						<td class="cell_cont"><a href="{$Link}">{$OnData}</a></td>
+						<td class="cell_cont"><a href="{$Link}">{$StartDate} ~ {$EndDate}</a></td>
+						<td class="cell_cont"><a href="{$Link}">{$MaxNumber}명</a></td>
+						<!--td class="cell_cont"><a href="{$Link}">{$Pay}원</a></td-->
+					</tr>
+					<!-- BLOCK END BOARD_LOOP -->
+
+					<!-- BLOCK BEGIN BOARD_LOOP_NODATA -->
+					<tr>
+						<td class="cell_cont" colspan=5>등록된 내용이 없습니다.</td>
+					</tr>
+					<!-- BLOCK END BOARD_LOOP_NODATA -->
+				</table>
+
+				<br><br>
+
+				<div class="page_list_area">{$pagelist}</div>
+
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,322 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	getProgramDate();
+	$('#programIdx').change(function(){
+		getProgramArea( $(this).val() );
+	})	
+
+	$('#LastName').keyup(function(e){
+		CheckSpace_alert($(this),'id');
+	});
+
+	$('#FirstName').keyup(function(e){
+		CheckSpace_alert($(this),'id');
+	});
+	//alert('사진등록을 하지 않거나 본인 사진이 아닐 경우 불이익을 받을 수 있습니다.');
+})
+
+function getProgramDate(){
+	var applicationKey = $('#applicationKey').val();
+	pop_loading();
+	$.ajax({
+		type: "POST",
+		dataType: "xml",
+		url: "ajax.dateLIst.asp",
+		data: {
+			 idx   : applicationKey
+			,Kind  : 0
+			,Class : 0
+		} ,
+		success: function(xml){
+			var login = $(xml).find("login").text();
+			if(login=='login'){
+				alert('로그인 세션 만료!');location.reload();return false;
+			}
+			var check = $(xml).find("check").text();
+			if(check=='0'){
+				alert('실기 응시는 필기 합격후 응시 가능합니다.');
+				$('#programIdx').html('<option value="">자격종목을 선택하세요.</option>');
+				$('#areaIdx').html('<option value="">검정시행일을 선택하세요.</option>');
+				$('#PayHtmlArea').html("0 원");
+				layerPopupClose('wall_loading','pop_loading');
+				return false;
+			}
+			var Payhtml = $(xml).find("Payhtml").text();
+
+			var tmp_html = '<option value="">검정시행일을 선택하세요.</option>';
+
+			
+			if ($(xml).find("data").find("item").length > 0) {
+				$(xml).find("data").find("item").each(function(idx) {
+					var idx   = $(this).find("idx").text();
+					var date  = $(this).find("date").text();
+					tmp_html += '<option value="'+idx+'">' + date + '</option>';
+				});
+			}else{
+				tmp_html = '<option value="">등록된 검정시행일이 없습니다.</option>';
+			}
+			layerPopupClose('wall_loading','pop_loading');
+			$('#programIdx').html(tmp_html);
+		},error:function(err){
+			alert('ERR [502] : 고객센터에 문의하세요.' + err.responseText);
+		}
+	});
+}
+
+
+function getProgramArea(idx){
+	pop_loading();
+	$.ajax({
+		type: "POST",
+		dataType: "xml",
+		url: "ajax.areaLIst.asp",
+		data: {
+			idx  : idx
+		} ,
+		success: function(xml){
+			var login = $(xml).find("admin_login").text();
+			if(login=='login'){
+				alert('로그인 세션 만료!');location.reload();return false;
+			}
+			var Payhtml = $(xml).find("Payhtml").text();
+
+			var tmp_html = '<option value="">검정장을 선택하세요.</option>';
+
+			
+			if ($(xml).find("data").find("item").length > 0) {
+				$(xml).find("data").find("item").each(function(idx) {
+					var idx   = $(this).find("idx").text();
+					var name  = $(this).find("name").text();
+					var addr  = $(this).find("addr").text();
+					tmp_html += '<option value="'+idx+'">'+ name +' ['+addr+']</option>';
+				});
+				$('#PayHtmlArea').html(Payhtml + " 원");
+			}else{
+				tmp_html = '<option value="">등록된 검정장이 없습니다.</option>';
+				$('#PayHtmlArea').html("0 원");
+			}
+			layerPopupClose('wall_loading','pop_loading');
+			$('#areaIdx').html(tmp_html);
+		},error:function(err){
+			alert('ERR [502] : 고객센터에 문의하세요.' + err.responseText);
+		}
+	});
+}
+function check(){
+	//alert('서비스 점검중입니다.');return false;
+
+	if( !$('#programIdx').val() ){
+		alert('검정시행일을 선택해주세요.');return false;
+	}
+	if( !$('#areaIdx').val() ){
+		alert('검정장을 선택해주세요.');return false;
+	}
+	if( !trim($('#LastName').val()) ){
+		alert('영문(성)을 입력하세요.');return false;
+	}
+	if( !trim($('#FirstName').val()) ){
+		alert('영문(이름)을 입력하세요.');return false;
+	}
+	if( CheckSpace($('#LastName').val(),'id') ){
+		alert("영문(성)은 특수문자를 입력할수 없습니다.");return false;
+	}
+	if( CheckSpace($('#FirstName').val(),'id') ){
+		alert("영문(이름)은 특수문자를 입력할수 없습니다.");return false;
+	}
+	/*
+	if( !$('#PhotoName').val() && !$('#oldPhotoName').val() ){
+		alert("사진을 등록해주세요.");return false;
+	}
+	if( $('#PhotoName').val() && fileTypeCheck( $('#PhotoName').val() ) != 'jpg' && fileTypeCheck( $('#PhotoName').val() ) != 'jpeg' ){
+		alert("사진은 JPG,JPEG 파일만 등록해주세요.");return false;
+	}
+	if( !$('#PhotoName').val() && $('#oldPhotoName').val() && fileTypeCheck( $('#oldPhotoName').val() ) != 'jpg' && fileTypeCheck( $('#oldPhotoName').val() ) != 'jpeg' ){
+		alert("사진은 JPG,JPEG 파일만 등록해주세요.");return false;
+	}*/
+	if( $(":radio[name='payMethod']:checked").length==0 ){
+		alert("결제수단을 선택해 주세요.");return false;
+	}
+	var payMethod = $(":radio[name='payMethod']:checked").val();
+	/*
+	if( payMethod == 'SC0040' ){
+		//무통장입금 페이지로 submit
+		$('#fm').attr({ 'target':'_self', 'action':'payProc.asp' ,'enctype':'multipart/form-data' }).submit();
+	}else{
+		var pupSubmit = window.open("","payreq","width=450,height=380,scrollbars=no");
+		$('#fm').attr({ 'target':'payreq', 'action':'/LGU_XPay_ASP/payreq.asp' ,'enctype':'application/x-www-form-urlencoded' });
+		$('#fm').submit();
+	}
+	
+
+	$('#MypayMethod').val( payMethod )
+	$('#fmMy').attr({ 'target':'_self', 'action':'payProc.asp' }).submit();
+
+	*/
+
+	
+	$('#MypayMethod').val( payMethod )
+	var pupSubmit = window.open("","payreq","width=450,height=380,scrollbars=no");
+	//$('#fm').submit();
+	$('#fmMy').submit();
+	
+}
+
+function PayResult(ResultCode,LGD_FINANCENAME,LGD_ACCOUNTNUM){
+	if( ResultCode == '0000' ){
+		pop_loading();
+		$('#btnArea').html('처리중 입니다.');
+		$('#LGD_FINANCENAME').val(LGD_FINANCENAME);
+		$('#LGD_ACCOUNTNUM').val(LGD_ACCOUNTNUM);
+		$('#fmMy').attr('action','payProc.asp');
+		$('#fmMy').attr('target','_self');
+		$('#fmMy').submit();
+	}
+}
+
+</script>
+<!-- #include file = "../_skin/basic/application/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/application/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_application_{$programTitleImg}.jpg"></div>
+				<div class="contPageNavi">H > 응시안내 및 접수 > <b>{$programName}</b></div>
+			</div>
+
+			<!-- #include file = "../_skin/basic/application/tabBtnArea.html" -->
+			
+			<h4 class="IconArrow">기본정보</h4>
+			<div id="board_wrap">
+				
+				<form name="fmMy" id="fmMy" method="POST" target="payreq" action="/LGU_XPay_ASP/payreq.asp" enctype="multipart/form-data">
+				<input type="hidden" name="oldPhotoName" id="oldPhotoName" value="{$Photo}">
+				<input type="hidden" name="actType" value="{$actType}">
+				<input type="hidden" name="UserIdx" value="{$UserIdx}">
+				<input type="hidden" name="applicationKey" id="applicationKey" value="{$applicationKey}">
+
+				<input type="hidden" name="LGD_FINANCENAME" id="LGD_FINANCENAME" value="">
+				<input type="hidden" name="LGD_ACCOUNTNUM"  id="LGD_ACCOUNTNUM" value="">
+				<input type="hidden" name="MypayMethod"  id="MypayMethod" value="">
+
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">성명</td>
+						<td class="cell_view_cont">{$UserName}</td>
+						<td class="cell_view_title" width="80">아이디</td>
+						<td class="cell_view_cont cell_no_rightLine" width="300">{$UserId}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">핸드폰</td>
+						<td class="cell_view_cont">{$UserPhone}</td>
+						<td class="cell_view_title">이메일</td>
+						<td class="cell_view_cont cell_no_rightLine">{$UserEmail}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">주소</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>{$UserAddr}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">생년월일</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>{$UserBirth}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">영문(성)</td>
+						<td class="cell_view_cont"><input type="text" class="INPUT" id="LastName" name="LastName" value="{$LastName}" style="ime-mode:disabled;" maxlength="50"></td>
+						<td class="cell_view_title">영문(이름)</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="text" class="INPUT" id="FirstName" name="FirstName" value="{$FirstName}" style="ime-mode:disabled;" maxlength="50"></td>
+					</tr>
+					<!--<tr>
+						<td class="cell_view_title">사진등록</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>
+							<input type="file" id="PhotoName" name="PhotoName"> <a href="{$downlPhotos}">{$Photo}</a>
+						</td>
+					</tr>-->
+				</table>
+
+				<!--/form-->
+
+				
+
+				<div class="btn_area">
+					<a href="../mypage/info.asp"><img src="{$imgDir}/board/btn_modify.jpg"></a>
+				</div>
+
+				<!--<p class="contTxt">
+				사진 등록 시 필히 본인 사진 등록 바랍니다.<br>
+				본인 이외의 기타(풍경, 동물, 로고 등) 사진으로 등록할 경우 검정 진행에 있어 본인 확인 절차 시 입실이 거부될 수 있으며, <br>
+				이 모든 사항에 대한 책임은 본인이 감수해야 함을 알려드립니다.<br>
+				* 종류: JPG, JPEG<br>
+				* 크기: 3MB
+				</p>-->
+
+				<h4 class="IconArrow">자격검정응시에 필요한 항목입니다.</h4>
+
+				
+				<!--form name="fm" id="fm" method="POST" target="payreq" action="/LGU_XPay_ASP/payreq.asp" enctype="application/x-www-form-urlencoded"-->
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">자격종목</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>{$programName}</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">검정시행일</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><select id="programIdx" name="programIdx"><option value="">자격종목을 선택하세요.</option></select></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">지정검정장</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><select id="areaIdx" name="areaIdx"><option value="">검정시행일을 선택하세요.</option></select></td>
+					</tr>
+				</table>
+				
+				<h4 class="IconArrow">결제수단 선택</h4>
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">응시금액</td>
+						<td class="cell_view_cont cell_no_rightLine"><span id="PayHtmlArea" style="font-weight:bold;color:#9a1134">0 원</span></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">결제수단</td>
+						<td class="cell_view_cont cell_no_rightLine">
+							<label><input type="radio" name="payMethod" value="SC0010" checked> 카드결제</label>
+							<label><input type="radio" name="payMethod" value="SC0030"> 실시간 계좌이체</label>
+							<!--label><input type="radio" name="payMethod" value="SC0060"> 핸드폰결제></label-->
+							<label><input type="radio" name="payMethod" value="SC0040"> 가상계좌입금</label>
+						</td>
+					</tr>
+				</table>
+
+				</form>
+
+<SCRIPT type="text/javascript">
+/*
+function dev_write(){
+	$('#dev_LastName').val( $('#LastName').val() );
+	$('#dev_FirstName').val( $('#FirstName').val() );
+	$('#dev_PhotoName').val( $('#PhotoName').val() );
+
+	$('#dev_fm').submit();
+}
+*/
+</SCRIPT>
+				<!--form name="dev_fm" id="dev_fm" action="dev_write.asp?applicationKey={$applicationKey}" method="POST">
+					<input type="hidden" id="dev_LastName"  name="dev_LastName">
+					<input type="hidden" id="dev_FirstName" name="dev_FirstName">
+					<input type="hidden" id="dev_PhotoName" name="dev_PhotoName">
+				</form-->
+
+				<div style="text-align:center;padding-top:30px;" id="btnArea">
+					<a href="javascript:void(check())" class="btnRedBox">결제하기</a>
+					<!--a href="dev_write.asp?applicationKey={$applicationKey}" class="btnRedBox">임시 응시접수</a-->
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>

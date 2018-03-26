@@ -1,0 +1,89 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#UserId').focus();
+	
+	$('#UserPwd').keyup(function(e){
+		if(e.keyCode==13){
+			check();
+		}
+	});
+
+})
+function check(){
+	if( !trim($('#UserId').val()) ){
+		alert('아이디를 입력하세요.');$('#UserId').focus();return false;
+	}
+	if( !trim($('#UserPwd').val()) ){
+		alert('패스워드를 입력하세요.');$('#UserPwd').focus();return false;
+	}
+	$('#fm').submit();
+}
+</script>
+<!-- #include file = "../_skin/basic/member/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/member/leftMunu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_member_login.jpg"></div>
+				<div class="contPageNavi">H > MEMBER > <b>로그인</b></div>
+			</div>
+
+			<div><img src="{$imgDir}/centerImg_login_txt.jpg"></div>
+
+			<div class="loginBoxArea">
+
+				<form name="fm" id="fm" action="loginP.asp" method="POST">
+				<input type="hidden" name="GoUrl" value="{$GoUrl}">
+				
+				<table cellpadding="0" cellspacing="0" width="374">
+					<tr>
+						<td></td>
+						<td colspan=2><img src="{$imgDir}/centerImg_login_title.jpg"></td>
+					</tr>
+					<tr><td colspan=3 height="10"></td></tr>
+					<tr>
+						<td width="51"><img src="{$imgDir}/centerImg_login_icon_id.jpg"></td>
+						<td><input type="text" class="INPUT" name="UserId" id="UserId" maxlength="50" tabindex="1" style="width:220px;ime-mode:disabled;text-transform:lowercase;"></td>
+						<td width="85" rowspan="3" valign="top"><a href="javascript:void(check());" ><img src="{$imgDir}/centerImg_login_btn_login.jpg"tabindex="3"></a></td>
+					</tr>
+					<tr><td colspan=3 height="3"></td></tr>
+					<tr>
+						<td><img src="{$imgDir}/centerImg_login_icon_pwd.jpg"></td>
+						<td><input type="password" class="INPUT" name="UserPwd" id="UserPwd" maxlength="50" tabindex="2" style="width:220px;"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan=2><input type="checkbox" name="SaveLog" id="SaveLog" tabindex="4"> <label for="SaveLog">ID 저장하기</label></td>
+					</tr>
+					<tr><td colspan=3 height="10"></td></tr>
+					<tr><td colspan=3 height="1" bgcolor="#bfbfbf"></td></tr>
+					<tr><td colspan=3 height="10"></td></tr>
+					<tr>
+						<td></td>
+						<td colspan=2 style="line-height:160%;">
+							아이디 또는 비밀번호를 잊으신 분들은<br>
+							아래 버튼을 이용하여 쉽게 찾으실 수 있습니다.
+						</td>
+					</tr>
+					<tr><td colspan=3 height="10"></td></tr>
+					<tr>
+						<td></td>
+						<td colspan=2>
+							<a href="agree.asp"><img src="{$imgDir}/centerImg_login_btn_join.jpg" style="float:left;margin-right:5px;" tabindex="5"></a>
+							<a href="fId.asp"><img src="{$imgDir}/centerImg_login_btn_fId.jpg" style="float:left;margin-right:5px;" tabindex="6"></a>
+							<a href="fPwd.asp"><img src="{$imgDir}/centerImg_login_btn_fPwd.jpg" style="float:left;" tabindex="7"></a>
+						</td>
+					</tr>
+				</table>
+
+				</form>
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

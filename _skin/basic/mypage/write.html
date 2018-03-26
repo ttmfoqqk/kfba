@@ -1,0 +1,87 @@
+<script type="text/javascript">
+function check(){
+	if( !trim($('#Title').val()) ){
+		alert('제목을 작성해주세요.');return false;
+	}
+	if( !trim($('#Contants').val()) ){
+		alert('내용을 작성해주세요.');return false;
+	}
+	$('#fm').submit()
+}
+</script>
+<!-- #include file = "../_skin/basic/mypage/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/mypage/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_mypage_03.jpg"></div>
+				<div class="contPageNavi">H > 마이페이지 > <b>나의 질문과답변</b></div>
+			</div>
+			
+			<h4 class="IconArrow">나의 질문과답변</h4>
+			<div id="board_wrap">
+
+				<form name="fm" id="fm" method="POST" action="proc.asp" enctype="multipart/form-data">
+				<input type="hidden" name="oldFileName" value="{$File}">
+				<input type="hidden" name="Idx" value="{$Idx}">
+				<input type="hidden" name="actType" value="{$actType}">
+				<input type="hidden" name="BoardKey" value="{$BoardKey}">
+				
+				<input type="hidden" name="pageNo" value="{$pageNo}">
+				<input type="hidden" name="sName" value="{$sName}">
+				<input type="hidden" name="sId" value="{$sId}">
+				<input type="hidden" name="sTitle" value="{$sTitle}">
+				<input type="hidden" name="sContant" value="{$sContant}">
+				<input type="hidden" name="sWord" value="{$sWord}">
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">작성자</td>
+						<td class="cell_view_cont cell_no_rightLine">{$Name}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">제목</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="text" class="INPUT" style="width:600px;" id="Title" name="Title" value="{$Title}"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">내용</td>
+						<td class="cell_view_cont cell_no_rightLine" valign=top>
+							<textarea style="width:600px;height:170px;" id="Contants" name="Contants">{$Contants}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">비밀글</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="checkbox" id="Secret" name="Secret" value="1" {$Secret}></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">첨부파일</td>
+						<td class="cell_view_cont cell_no_rightLine">
+							<input type="file" class="INPUT" id="FileName" name="FileName">
+							<!-- BLOCK BEGIN HIDDEN_DATA_FILE -->
+							<a href="{$downloadUrl}">{$File}</a>
+							<input type="checkbox" value="1" name="DellFileFg"> 기존파일 삭제
+							<!-- BLOCK END HIDDEN_DATA_FILE -->
+						</td>
+					</tr>
+				</table>
+
+				</form>
+
+				<div class="btn_area">
+					<a href="index.asp?{$PageParams}&Idx={$Idx}&actType=MODIFY"><img src="{$imgDir}/board/btn_list.jpg" align=left></a>
+				<!-- BLOCK BEGIN BOARD_BTN_WRITE -->
+					<a href="javascript:void(check());"><img src="{$imgDir}/board/btn_write.jpg"></a>
+				<!-- BLOCK END BOARD_BTN_WRITE -->
+				</div>
+
+			</div>
+			
+
+
+
+		</div>
+	</div>
+</div>

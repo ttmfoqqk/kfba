@@ -1,0 +1,173 @@
+<STYLE type="text/css">
+	html{overflow-y:hidden;}
+</STYLE>
+
+<script type="text/javascript">
+$(function(){
+	/* 팝업 */
+
+	cookiedata = document.cookie; 
+	
+
+	if(cookiedata.indexOf("mainpop1=done1") < 0){
+		$('#pup_1').css({ 'top' : '10px' , 'left' : '10px' ,'width' : '500px' }).show();
+	}
+
+
+/*	
+	if(cookiedata.indexOf("mainpop2=done2") < 0){
+		$('#pup_2').css({ 'top' : '10px' , 'left' : '520px' ,'width' : '500px' }).show();
+	}
+*/
+
+/*	
+	if(cookiedata.indexOf("mainpop3=done3") < 0){
+		$('#pup_3').css({ 'top' : '10px' , 'left' : '10px' ,'width' : '500px' }).show();
+	}
+*/
+	
+	
+	
+
+	$main_contants    = $('#main_contants');
+	$backgroundImages = $('#main_backgroundImages');
+	$rolling_icon     = $('#main_rolling_icon');
+
+	$('#main_contants').height( $(window).height()-$('#top_wrap').height()-$('#top_navi_wrap').height()-$('#footer_wrap').height() );
+
+	var minWidth  = 1000;
+	var minHeight = 634;
+
+	if( $backgroundImages.height() > minHeight || $backgroundImages.width() > minWidth ){
+		if($backgroundImages.width() > $backgroundImages.height()*2){
+			$backgroundImages.find('img').width( $backgroundImages.width() );
+			$backgroundImages.find('img').height( $backgroundImages.width()/2 );
+		}else{
+			$backgroundImages.find('img').width( $backgroundImages.height()*2 );
+			$backgroundImages.find('img').height( $backgroundImages.height() );
+		}
+	}
+
+	var rolling_icon_html = '';
+	var rolling_cnt       = 0;
+	var rolling_length    = $backgroundImages.find('div').length;
+	var rolling_setTime;
+
+	for(var i=0;i<rolling_length;i++ ){
+		rolling_icon_html += '<a href="javascript:;" value="'+i+'"><span class="blind">'+(i+1)+'번째 이미지</span></a> ';
+	}
+	$rolling_icon.html(rolling_icon_html);
+
+	rolling_img(rolling_cnt);
+
+	function rolling_img( t ){
+		clearTimeout(rolling_setTime);
+		t = t >= rolling_length ? 0 : t;
+		
+		$rolling_icon.find('a').removeClass().unbind().filter(':eq('+t+')').addClass('over');
+
+		$backgroundImages.find('div:eq('+rolling_cnt+')').stop().fadeOut(1000,function(){
+			
+			$backgroundImages.find('div:eq('+t+')').stop().fadeIn(1000,function(){
+				rolling_cnt=t;
+				$rolling_icon.find('a').bind('click',function(){
+					rolling_img( $(this).attr('value') );
+				});
+				rolling_setTime = setTimeout(function(){rolling_img( parseInt(rolling_cnt)+1 )},3000);
+			});
+		})
+	}
+});
+$(window).resize(function(){
+	$('#main_contants').height( $(window).height()-$('#top_wrap').height()-$('#top_navi_wrap').height()-$('#footer_wrap').height() );
+
+	var minWidth  = 500;
+	var minHeight = 317;
+	if( $backgroundImages.height() > minHeight || $backgroundImages.width() > minWidth ){
+		if($backgroundImages.width() > $backgroundImages.height()*2){
+			$backgroundImages.find('img').width( $backgroundImages.width() );
+			$backgroundImages.find('img').height( $backgroundImages.width()/2 );
+		}else{
+			$backgroundImages.find('img').width( $backgroundImages.height()*2 );
+			$backgroundImages.find('img').height( $backgroundImages.height() );
+		}
+	}
+})
+
+function setCookie( name, value, expiredays ){ 
+	var todayDate = new Date(); 
+	todayDate.setDate( todayDate.getDate() + expiredays ); 
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" 
+} 
+function closeWinPup( pup , name,value ){
+	setCookie( name, value , 1 );
+	$('#'+pup).hide();
+}
+</script>
+
+
+
+<div id="main_contants">
+	<div id="main_backgroundImages" class="marin_background">
+		<div><img src="{$imgDir}/visual/01.jpg"></div>
+		<div><img src="{$imgDir}/visual/02.jpg"></div>
+		<div><img src="{$imgDir}/visual/03.jpg"></div>
+		<div><img src="{$imgDir}/visual/04.jpg"></div>
+	</div><!-- 백그라운드 -->
+
+	<div class="main_wrap_rolling">
+		<div class="notice">
+			<div class="pd">
+				<div class="title">
+					<div><img src="{$imgDir}/title_mainNotice.jpg"></div>
+					<div class="more"><a href="./comunity/?BoardKey={$boardKey}"><b>+ MORE</b></a></div>
+				</div>
+				<ul>
+					<!-- BLOCK BEGIN BOARD_LOOP -->
+					<li class="txt_title"><a href="./comunity/view.asp?BoardKey=1&Idx={$Idx}">{$Title}</a></li>
+					<li class="txt_data"><a href="./comunity/view.asp?BoardKey=1&Idx={$Idx}">{$Indate}</a></li>
+					<!-- BLOCK END BOARD_LOOP -->
+				</ul>
+			</div>
+		</div>
+		<div class="text"><img src="{$imgDir}/text_visual.png"></div>
+		<div id="main_rolling_icon"></div>
+	</div>
+</div>
+
+
+<!-- 중단 레이어 닫기 -->
+</div>
+
+
+
+<div id="pup_1" class="pupup_wrap">
+	<div> <a href="./comunity/view.asp?pageNo=1&BoardKey=1&sName=1&sId=0&sTitle=1&sContant=0&sWord=&Idx=482"> <img src="/pup/pup_20180212.jpg" usemap="#Map_pup"></div>
+	<div class="pup_bottom_area"> <input type="checkbox" name="pupclose" onclick="closeWinPup('pup_1','mainpop1','done1')"> 오늘하루 이창을 열지 않습니다. <a href="javascript:void($('#pup_1').hide());">[닫기]</a></div>
+</div>
+<!--map name="Map_pup" id="Map_pup">
+  <area shape="rect" coords="566,511,663,548" href="./comunity/view.asp?pageNo=1&BoardKey=1&sName=1&sId=0&sTitle=1&sContant=0&sWord=&Idx=265" onfocus="blur()"/>
+</map-->
+
+
+
+<div id="pup_2" class="pupup_wrap">
+	<div><a href="./comunity/view.asp?pageNo=1&BoardKey=1&sName=1&sId=0&sTitle=1&sContant=0&sWord=&Idx=456"><img src="/pup/pup_20180103_2.jpg" usemap="#Map_pup2"></div>
+	<div class="pup_bottom_area"> <input type="checkbox" name="pupclose" onclick="closeWinPup('pup_2','mainpop2','done2')"> 오늘하루 이창을 열지 않습니다. <a href="javascript:void($('#pup_2').hide());">[닫기]</a></div>
+</div>
+<!--map name="Map_pup2" id="Map_pup2">
+  <area shape="rect" coords="377,444,472,477" href="./comunity/view.asp?pageNo=1&BoardKey=1&sName=1&sId=0&sTitle=1&sContant=0&sWord=&Idx=242" onfocus="blur()"/>
+</map-->
+
+
+
+<div id="pup_3" class="pupup_wrap">
+	<div><a href="./comunity/view.asp?pageNo=1&BoardKey=1&sName=1&sId=0&sTitle=1&sContant=0&sWord=&Idx=404"><img src="/pup/pup_20170707.jpg" usemap="#Map_pup3"></div>
+	<div class="pup_bottom_area"> <input type="checkbox" name="pupclose" onclick="closeWinPup('pup_3','mainpop3','done3')"> 오늘하루 이창을 열지 않습니다. <a href="javascript:void($('#pup_3').hide());">[닫기]</a></div>
+</div>
+<!--map name="Map_pup3" id="Map_pup3">
+  <area shape="rect" coords="261,347,379,376" href="./comunity/view.asp?pageNo=1&BoardKey=1&sName=1&sId=0&sTitle=1&sContant=0&sWord=&Idx=118" onfocus="blur()"/>
+</map-->
+
+<!-- 중단 대체 레이어 열기 -->
+<div>

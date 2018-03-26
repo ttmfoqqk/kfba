@@ -1,0 +1,47 @@
+<script type="text/javascript" src="../_lib/js/1.4.2.jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	cookiedata = document.cookie; 
+	if(cookiedata.indexOf("mainpop1=done1") < 0){ 
+		$('#pup_1').show();
+	}
+})
+
+function setCookie( name, value, expiredays ){ 
+	var todayDate = new Date(); 
+	todayDate.setDate( todayDate.getDate() + expiredays ); 
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" 
+} 
+function closeWinPup( pup , name,value ){
+	setCookie( name, value , 1 );
+	pup.hide();
+}
+</script>
+<style type="text/css">
+#pup_1{
+	position:absolute;
+	top:10px;
+	left:10px;
+	border:1px solid #4f4f4f;
+	z-index:1000;
+	background-color:#ffffff;
+	display:none;
+}
+
+.pup_bottom_area{
+	background-color:#000000;
+	color:#ffffff;
+	height:25px;
+	line-height:25px;
+	text-align:right;
+	padding-right:20px;
+}
+.pup_bottom_area a:link{color:#ffffff;text-decoration:none}
+.pup_bottom_area a:visited{color:#ffffff;text-decoration:none}
+.pup_bottom_area a:active{color:#ffffff;text-decoration:none}
+.pup_bottom_area a:hover{color:#ffffff;text-decoration:none}
+</style>
+<div id="pup_1">
+	<div><img src="/pup/pup_130417.jpg"></div>
+	<div class="pup_bottom_area"> <input type="checkbox" name="pupclose" onclick="closeWinPup('#pup_1','mainpop1','done1')"> 오늘하루 이창을 열지 않습니다. <a href="javascript:$('#pup_1').hide()">[닫기]</a></div>
+</div>

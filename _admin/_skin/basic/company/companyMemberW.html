@@ -1,0 +1,197 @@
+<!-- BLOCK BEGIN INFO -->
+- {$actType}      : 페이지 모드
+- {$imgDir}       : 이미지 경로
+- {$adminIdx}     : 키
+- {$adminId}      : 아이디
+- {$adminPwd}     : 패스워드
+- {$adminName}    : 이름
+- {$adminPhone1}  : 전화1
+- {$adminPhone2}  : 전화2
+- {$adminPhone3}  : 전화3
+- {$adminHphone1} : 모바일1
+- {$adminHphone2} : 모바일2
+- {$adminHphone3} : 모바일3
+- {$adminExtNum}  : 내선번호
+- {$adminDirNum}  : 직통번호
+- {$adminemail}   : 이메일
+- {$adminemail1}  : 이메일1
+- {$adminemail2}  : 이메일2
+- {$adminMsgAddr} : 메신저
+- {$adminMsgAddr1} : 메신저1
+- {$adminMsgAddr2} : 메신저2
+- {$adminBigo}    : 비고
+
+- {$phoneOption}  : 일반전화 콤보박스 옵션
+- {$hphoneOption} : 핸드폰 콤보박스 옵션
+- {$mailOption}   : 이메일 콤보박스 옵션
+- {$msgOption}    : 메신저 콤보박스 옵션
+
+<!-- BLOCK END INFO -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#emailWrite').click(function(){
+		changeEmailInput();
+	});
+	$('#adminMail2').change(function(){
+		$('#adminMail3').val( $(this).val() );
+	})
+	$('#msgWrite').click(function(){
+		changeMsgInput();
+	});
+	$('#adminMsg2').change(function(){
+		$('#adminMsg3').val( $(this).val() );
+	})
+})
+
+function changeEmailInput(){
+	if( $('#emailWrite').is(":checked") ){
+		$('#adminMail2').hide();
+		$('#adminMail3').show();
+	}else{
+		$('#adminMail2').show();
+		$('#adminMail3').hide();
+	}
+}
+
+function changeMsgInput(){
+	if( $('#msgWrite').is(":checked") ){
+		$('#adminMsg2').hide();
+		$('#adminMsg3').show();
+	}else{
+		$('#adminMsg2').show();
+		$('#adminMsg3').hide();
+	}
+}
+
+function chec_fm(){
+	if( !trim( $('#adminId').val() ) ){
+		alert('아이디를 입력하세요.');return false;
+	}
+	
+	if( !trim( $('#adminPwd').val() ) ){
+		alert('비밀번호를 입력하세요.');return false;
+	}
+	if( !trim( $('#adminPwdCk').val() ) ){
+		alert('비밀번호 확인을 입력하세요.');return false;
+	}
+	if( trim( $('#adminPwd').val() ) != trim( $('#adminPwdCk').val() ) ){
+		alert('비밀번호를 확인해주세요.');return false;
+	}
+	if( !trim( $('#adminPhone1').val() ) || !trim( $('#adminPhone2').val() ) || !trim( $('#adminPhone3').val() ) ){
+		alert('전화번호를 입력해주세요.');return false;
+	}
+
+	if( !trim( $('#adminHphone1').val() ) || !trim( $('#adminHphone2').val() ) || !trim( $('#adminHphone3').val() ) ){
+		alert('핸드폰 번호를 입력해주세요.');return false;
+	}
+	$('#btn_area').html("처리중입니다.");
+	$('#fm').submit();
+
+
+}
+function del_fm_checkbox(){
+	if( confirm("삭제 하시겠습니까?") ){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+
+
+</script>
+<div class="center_leftCont_wrap">
+
+	<form name="fm" id="fm" method="post" action="companyMemberP.asp">
+	<input type="hidden" name="actType" id="actType" value="{$actType}">
+	<input type="hidden" name="adminIdx" id="adminIdx" value="{$adminIdx}">
+	
+	<table cellpadding=0 cellspacing=0 border=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 사원관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 홈페이지 관리 > 사원관리</td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px">정보 {$actType}</td>
+		</tr>
+		<tr>
+			<td colspan=2>
+				<table cellpadding=0 cellspacing=0 width=100% class="line_box_table">
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0" width="115">ID</td>
+						<td class="line_box"><input type="text" id="adminId" name="adminId" class="input" value="{$adminId}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">비밀번호</td>
+						<td class="line_box"><input type="password" id="adminPwd" name="adminPwd" class="input" value="{$adminPwd}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">비밀번호 확인</td>
+						<td class="line_box"><input type="password" id="adminPwdCk" name="adminPwdCk" class="input" value="{$adminPwd}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">이름</td>
+						<td class="line_box"><input type="text" id="adminName" name="adminName" class="input" value="{$adminName}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">전화번호</td>
+						<td class="line_box">
+							<select id="adminPhone1" name="adminPhone1" style="width:70px;">{$phoneOption}</select> - 
+							<input type="text" id="adminPhone2" name="adminPhone2" maxlength=4 class="input" size=4 value="{$adminPhone2}" maxlength="4"> - 
+							<input type="text" id="adminPhone3" name="adminPhone3" maxlength=4 class="input" size=4 value="{$adminPhone3}" maxlength="4">
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">핸드폰</td>
+						<td class="line_box">
+							<select id="adminHphone1" name="adminHphone1" style="width:70px;">{$hphoneOption}</select> - 
+							<input type="text" id="adminHphone2" name="adminHphone2" maxlength=4 class="input" size=4 value="{$adminHphone2}" maxlength="4"> - 
+							<input type="text" id="adminHphone3" name="adminHphone3" maxlength=4 class="input" size=4 value="{$adminHphone3}" maxlength="4">
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">내선번호</td>
+						<td class="line_box"><input type="text" id="adminExt" name="adminExt" class="input" value="{$adminExtNum}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">직통번호</td>
+						<td class="line_box"><input type="text" id="adminDir" name="adminDir" class="input" value="{$adminDirNum}" maxlength="50"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">E-Mail</td>
+						<td class="line_box">
+							<input type="text" id="adminMail1" name="adminMail1" class="input" size=12 maxlength="120" value="{$adminemail1}"> @ 
+							<input type="text" id="adminMail3" name="adminMail3" class="input" size=12 maxlength="80"  value="{$adminemail2}" style="display:none">
+							<select id="adminMail2" name="adminMail2">{$mailOption}</select>
+							<input type="checkbox" id="emailWrite"> 직접입력
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">메신저</td>
+						<td class="line_box">
+							<input type="text" id="adminMsg1" name="adminMsg1" class="input" size=12 maxlength="120" value="{$adminMsgAddr1}"> @ 
+							<input type="text" id="adminMsg3" name="adminMsg3" class="input" size=12 maxlength="80"  value="{$adminMsgAddr2}" style="display:none"> 
+							<select id="adminMsg2" name="adminMsg2">{$msgOption}</select>
+							<input type="checkbox" id="msgWrite"> 직접입력
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=right bgcolor="f0f0f0">비고</td>
+						<td class="line_box"><textarea id="adminBigo" name="adminBigo" style="width:100%;height:80px;">{$adminBigo}</textarea></td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2 id="btn_area">
+				<a href="javascript:chec_fm()"><img src="{$imgDir}/center_btn_write_ok.gif"></a> &nbsp;&nbsp;
+				<a href="javascript:void(del_fm_checkbox())"><img src="{$imgDir}/center_btn_delete.gif"></a>
+			</td>
+		</tr>
+	</table>
+	
+	</form>
+
+</div>

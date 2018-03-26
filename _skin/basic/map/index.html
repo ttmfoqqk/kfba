@@ -1,0 +1,129 @@
+<script type="text/javascript" src="../_lib/js/flash.js"></script>
+<script type="text/javascript">
+var pageNo = '{$pageNo}';
+var sACode = '{$sACode}';
+$(document).ready(function(){
+	
+	$('#sPcode').change(function(){
+		var idx = $(this).val();
+		if(!idx){
+			//return false;
+		}
+		location.href='./?pageNo='+pageNo+'&sPcode='+idx+'&sACode='+sACode;
+	})
+	var area_btn = $('#search_btn_table').find('img');
+	
+	area_btn.click(function(){
+		var sPcode = $('#sPcode').val();
+		var idx    = $(this).attr('value');
+		location.href='./?pageNo='+pageNo+'&sPcode='+sPcode+'&sACode='+idx;
+	});
+
+	area_btn.css('cursor','pointer').each(function(index){
+		if( sACode == $(this).attr('value') ){
+			$(this).attr( 'src' , $(this).attr('src').replace('_off','_on') ).unbind();
+		};
+	});
+
+})
+</script>
+<!-- #include file = "../_skin/basic/map/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/map/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_area_01.jpg"></div>
+				<div class="contPageNavi">H > 검정장등록 및 조회 > <b>검정장 조회</b></div>
+			</div>
+			
+
+			<h4 class="IconArrow">검정장 안내</h4>
+
+			<div id="board_wrap">
+			<form name="fm" id="fm" method="GET">
+			<input type="hidden" name="sPcode" value="{$sPcode}">
+			<input type="hidden" name="sACode" value="{$sACode}">
+			
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap" style="border-bottom:0px;background-color:#f7f7f7;">
+					<tr>
+						<td width="310" height=390 align=center><script language=javascript>flash('../_skin/basic/flash/map.swf','9','','','300','390','yes','');</script></td>
+						<td valign=top>
+							<table cellpadding=0 cellspacing=0 style="padding:10px 0px 0px 0px" id="search_btn_table">
+								<tr>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_01_off.jpg" value=""   class="rollover" alt="전체검색"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_02_off.jpg" value="70" class="rollover" alt="서울특별시"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_03_off.jpg" value="71" class="rollover" alt="경기도"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_04_off.jpg" value="78" class="rollover" alt="강원도"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_05_off.jpg" value="87" class="rollover" alt="경상남도"></td>
+								</tr>
+								<tr>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_06_off.jpg" value="81" class="rollover" alt="경상북도"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_07_off.jpg" value="75" class="rollover" alt="광주광역시"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_08_off.jpg" value="73" class="rollover" alt="대전광역시"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_09_off.jpg" value="74" class="rollover" alt="대구광역시"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_10_off.jpg" value="77" class="rollover" alt="부산광역시"></td>
+								</tr>
+								<tr>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_11_off.jpg" value="76" class="rollover" alt="울산광역시"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_12_off.jpg" value="72" class="rollover" alt="인천광역시"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_13_off.jpg" value="86" class="rollover" alt="전라남도"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_14_off.jpg" value="80" class="rollover" alt="전라북도"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_15_off.jpg" value="85" class="rollover" alt="충청남도"></td>
+								</tr>
+								<tr>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_16_off.jpg" value="79" class="rollover" alt="충청북도"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_17_off.jpg" value="82" class="rollover" alt="제주도"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_18_off.jpg" value="83" class="rollover" alt="해외"></td>
+									<td style="padding:10px 3px 10px 0px"><img src="{$imgDir}/btn_map_19_off.jpg" value="84" class="rollover" alt="기타"></td>
+								</tr>
+							</table>
+
+							<div style="padding:90px 0px 30px 50px;"><img src="{$imgDir}/centerImg_area_01.jpg" align=absmiddle style="padding:0px 0px 3px 0px"><select name="sPcode" id="sPcode">{$codeOption}</select></div>
+							<div style="padding:0px 0px 20px 50px;"><img src="{$imgDir}/centerImg_area_02.jpg"></div>
+						</td>
+					</tr>
+				</table>
+
+				</form>
+
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_title" width="120">검정과목</td>
+						<td class="cell_title">이름</td>
+						<td class="cell_title" width="100">연락처</td>
+						<td class="cell_title" width="250">주소</td>
+					</tr>
+					
+					<!-- BLOCK BEGIN BOARD_LOOP -->
+					<tr>
+						<td class="cell_cont"><a href="view.asp?{$PageParams}&Idx={$Idx}">{$ProgramName}</a></td>
+						<td class="cell_cont" style="text-align:left;"><a href="view.asp?{$PageParams}&Idx={$Idx}">{$Name}</a></td>
+						<td class="cell_cont"><a href="view.asp?{$PageParams}&Idx={$Idx}">{$Tel}</a></td>
+						<td class="cell_cont" style="text-align:left;"><a href="view.asp?{$PageParams}&Idx={$Idx}">{$Addr}</a></td>
+					</tr>
+					<!-- BLOCK END BOARD_LOOP -->
+
+					<!-- BLOCK BEGIN BOARD_LOOP_NODATA -->
+					<tr>
+						<td class="cell_cont" colspan=5>등록된 내용이 없습니다.</td>
+					</tr>
+					<!-- BLOCK END BOARD_LOOP_NODATA -->
+				</table>
+
+				<br><br>
+
+				<div class="page_list_area">{$pagelist}</div>
+
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

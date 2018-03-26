@@ -1,0 +1,133 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#PhotosArea > img').css('cursor','pointer');
+	$('#PhotosArea > img').click(function(){
+		var imgSrc    = $(this).attr('src');
+		html = '<div id="BigImgPup" style="" onclick="$(this).remove();"><img src="'+imgSrc+'"></div>';
+		$('body').append(html);
+		
+		$('#BigImgPup > img').load(function(){
+			var cWidth  = $(this).width();
+			var cHeight = $(this).height();
+			var w = cWidth > 1000 ? 1000 : cWidth;
+			$(this).css('width',w);
+			var left = ( $(window).scrollLeft() + ($(window).width() - $(this).width()) / 2 );
+			var top = ( $(window).scrollTop() + ($(window).height() - $(this).height()) / 2 );
+			$('#BigImgPup').css({ 'position':'absolute' , 'top':top+'px' , 'left':left+'px' , 'cursor':'pointer' , 'border':'2px solid #000000' , 'z-index':'500' , 'padding':'5px' , 'background-color':'#ffffff' });
+		});
+	})
+})
+function del_fm_checkbox(){
+	if( confirm("삭제 하시겠습니까?") ){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+function check(){
+	if( confirm("수정 하시겠습니까?") ){
+		$('#fm').submit();
+	}
+}
+</script>
+<div class="center_leftCont_wrap">
+
+
+	
+	<table cellpadding=0 cellspacing=0 border=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 응시관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 응시관리 관리 > 심사위원 관리</td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px">정보 {$actType}</td>
+		</tr>
+		<tr>
+			<td colspan=2>
+				<h4>기본정보</h4>
+				
+				<form name="fm" id="fm" method="POST" action="judgeP.asp">
+				<input type="hidden" name="Idx" id="Idx" value="{$Idx}">
+				<input type="hidden" name="actType" id="actType" value="{$actType}">
+				
+				<input type="hidden" name="pageNo"   value="{$pageNo}">
+				<input type="hidden" name="sIndate"  value="{$sIndate}">
+				<input type="hidden" name="sOutdate" value="{$sOutdate}">		
+				<input type="hidden" name="sPcode"   value="{$sPcode}">
+				<input type="hidden" name="sState"   value="{$sState}">
+				<input type="hidden" name="sId"      value="{$sId}">
+				<input type="hidden" name="sName"    value="{$sName}">
+				<input type="hidden" name="sPhone3"  value="{$sPhone3}">
+				<input type="hidden" name="sBirth"   value="{$sBirth}">
+
+				<div id="PhotosArea">{$Photo}</div><br>
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="150">성명</td>
+						<td class="line_box" width="200">{$UserName}</td>
+						<td class="line_box" width="150" bgcolor="f0f0f0">아이디</td>
+						<td class="line_box">{$UserId}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0">생년월일</td>
+						<td class="line_box" colspan=3>{$UserBirth}</td>
+					</tr>	
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0">핸드폰</td>
+						<td class="line_box" >{$UserPhone}</td>
+						<td class="line_box" bgcolor="f0f0f0">이메일</td>
+						<td class="line_box" >{$UserEmail}</td>
+					</tr>
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0">주소</td>
+						<td class="line_box" colspan=3>{$UserAddr}</td>
+					</tr>
+				</table>
+
+				<h4>추가정보</h4>
+				
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="150">자격종목</td>
+						<td class="line_box">{$ProgramName}</td>
+						<td class="line_box" bgcolor="f0f0f0" width="150">접수현황</td>
+						<td class="line_box" width="200"><select name="State" id="State">{$StateOption}</select></td>
+					</tr>
+				</table>
+
+				<br><br>
+				<div class="BoxLineBottom"></div>
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr height="35">
+						<td class="line_box" bgcolor="f0f0f0" width="20%">근무처</td>
+						<td class="line_box" bgcolor="f0f0f0" width="20%">근무시간</td>
+						<td class="line_box" bgcolor="f0f0f0" width="20%">근무개월</td>
+						<td class="line_box" bgcolor="f0f0f0" width="40%">최종직위(업무내용)</td>
+					</tr>
+					<!-- BLOCK BEGIN SUBDATA_LOOP -->
+					<tr height="35">
+						<td class="line_box" >{$CompanyName}</td>
+						<td class="line_box" >{$WorkTime}</td>
+						<td class="line_box" >{$WorkMonth}</td>
+						<td class="line_box" >{$LastPosition}</td>
+					</tr>
+					<!-- BLOCK END SUBDATA_LOOP -->
+				</table>
+
+
+				</form>
+
+			</td>
+		</tr>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2 id="btn_area">
+				<a href="javascript:void(check())"><img src="{$imgDir}/center_btn_write_ok.gif"></a> &nbsp;&nbsp;
+				<a href="javascript:void(del_fm_checkbox())"><img src="{$imgDir}/center_btn_delete.gif"></a>
+			</td>
+		</tr>
+	</table>
+	
+
+</div>

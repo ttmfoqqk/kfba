@@ -1,0 +1,73 @@
+<!-- #include file = "../_skin/basic/application/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/application/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_application_{$programTitleImg}.jpg"></div>
+				<div class="contPageNavi">H > 응시안내 및 접수 > <b>{$programName}</b></div>
+			</div>
+
+			<!-- #include file = "../_skin/basic/application/tabBtnArea.html" -->
+
+
+			<!-- BLOCK BEGIN JUDGE_LOOF -->
+
+			<h4 class="IconArrow"><span style="color:#9a1134;">{$programName}</span> 심사위원장</h4>
+
+			<table cellpadding=0 cellspacing=0 width=100% >
+				<tr>
+					<td width=180 valign=top>{$Photo}</td>
+					<td valign=top>
+						
+						<table cellpadding=0 cellspacing=0 width=100%>
+							<tr>
+								<td width="70" height="20"><b>성명</b></td>
+								<td>: {$UserName}</td>
+							</tr>
+							<tr>
+								<td height="20"><b>생년월일</b></td>
+								<td>: {$UserBirth}</td>
+							</tr>
+							<tr>
+								<td height="20"><b>이메일</b></td>
+								<td>: {$UserEmail}</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+
+			<br><br>
+
+			<div id="application_wrap">
+				
+				<div class="BoxLineBottom"></div>
+
+				<table cellpadding=0 cellspacing=0 width="100%">
+					<tr>
+						<td class="cell_view_title" width="110">근무처</td>
+						<td class="cell_view_title" width="110">근무시간</td>
+						<td class="cell_view_title" width="80">근무개월</td>
+						<td class="cell_view_title">최종직위(업무내용)</td>
+					</tr>
+					{$JUDGE_LOOF_SUB}
+				</table>
+			
+			</div>
+
+			<!-- BLOCK END JUDGE_LOOF -->
+
+			<!-- BLOCK BEGIN JUDGE_LOOF_NODATA -->
+			<h4 class="IconArrow"><span style="color:#9a1134;">{$programName}</span> 심사위원장</h4>
+			<div style="text-align:center;padding:30px;">등록된 심사위원이 없습니다.</div>
+			<!-- BLOCK END JUDGE_LOOF_NODATA -->
+
+
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,51 @@
+<script type="text/javascript">
+function checkAgree(){
+	if( !$('#agree1').is(":checked") ){
+		alert('서비스 이용약관에 동의해 주세요.');return false;
+	}
+	if( !$('#agree2').is(":checked") ){
+		alert('개인정보 수집 및 수집방법에 동의해 주세요.');return false;
+	}
+	$('#fm').submit();
+}
+</script>
+<!-- #include file = "../_skin/basic/member/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/member/leftMunu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_member_join.jpg"></div>
+				<div class="contPageNavi">H > <b>약관동의</b> > 본인인증 > 기본정보입력 > 가입완료</div>
+			</div>
+
+			<div class="BoxLineBottom">
+				<h4 class="IconArrow">약관동의</h4>
+			</div>
+			
+			<form id="fm" name="fm" action="joinAuth.asp" method="POST">
+
+			<div class="BoxLineOutLine">
+				<h4>서비스 이용약관</h4>
+				<div style="width:98%;height:220px;;padding:5px;overflow-x:hidden;overflow-y:scroll;text-align:left;" class="INPUT">{$agree1}</div>
+				<h4 style="text-align:center;"><input type="checkbox" id="agree1" name="agree1" value="1"> <label for="agree1"> 위 약관에 동의 합니다.</label></h4>
+			</div>
+
+			<div class="BoxLineOutLine">
+				<h4>개인정보취급방침</h4>
+				<div style="width:98%;height:220px;;padding:5px;overflow-x:hidden;overflow-y:scroll;text-align:left;" class="INPUT">{$agree2}</div>
+				<h4 style="text-align:center;"><input type="checkbox" id="agree2" name="agree2" value="1"> <label for="agree2"> 개인정보 수집 및 수집방법에 동의 합니다.</label></h4>
+			</div>
+
+			</form>
+
+			<div class="BoxLineBottom" style="text-align:center;padding:30px;">
+				<a href="javascript:void(checkAgree());" class="btnRedBox">다음단계</a>&nbsp;&nbsp;
+				<a href="/" class="btnGrayBox">가입취소</a>
+			</div>
+
+		</div>
+	</div>
+</div>

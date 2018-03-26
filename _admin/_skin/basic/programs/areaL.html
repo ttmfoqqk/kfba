@@ -1,0 +1,156 @@
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#check_all').click(function(){
+		if( $(this).is(":checked") ){
+			$(':checkbox[name="Idx"]').attr('checked', true);
+		}else{
+			$(':checkbox[name="Idx"]').attr('checked', false);
+		}
+	});
+
+	$('#sCode').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+
+})
+function del_fm_checkbox(){
+	if( $(":checkbox[name='Idx']:checked").length==0 ){
+		alert("삭제할 항목을 하나이상 체크해주세요.");
+		return;
+	}
+	if(confirm("삭제 하시겠습니까?")){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+</script>
+<div class="center_leftCont_wrap">
+
+	
+	
+	<table cellpadding=0 cellspacing=0 border=0 width="100%" >
+		<tr>
+			<td width="50%" class="centerPage_Title"> ■ 프로그램관리</td>
+			<td width="50%" align=right><img src="{$imgDir}/navi_icon.gif"> 프로그램 관리 > 검정장 관리</td>
+		</tr>
+		<tr><td class=center_cont_title_bg colspan=2></td></tr>
+		<tr>
+			<td colspan=2 style="padding:10px 0px 10px 0px"><img src="{$imgDir}/center_sub_search.gif"></td>
+		</tr>
+
+		<form name="sfm" method="get">
+
+
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td colspan=2 >
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">작성일</td>
+						<td class="line_box" colspan=3>
+						<input type="text" class="input" id="sIndate" name="sIndate" readonly value="{$sIndate}" size=15> 
+						<img src="{$imgDir}/center_icon_carender.gif" onclick="callCalendar(sfm.sIndate);"> - 
+						<input type="text" class="input" id="sOutdate" name="sOutdate" readonly value="{$sOutdate}" size=15> 
+						<img src="{$imgDir}/center_icon_carender.gif" onclick="callCalendar(sfm.sOutdate);"> 
+						<a href="javascript:date_input('sIndate','sOutdate','{$s1Day}','{$s1Day}')">[오늘]</a>
+						<a href="javascript:date_input('sIndate','sOutdate','{$s7Day}','{$s1Day}')">[7일전]</a>
+						<a href="javascript:date_input('sIndate','sOutdate','{$s30Day}','{$s1Day}')">[30일전]</a>
+						&nbsp;
+						<a href="javascript:date_input('sIndate','sOutdate','','')">[날짜초기화]</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">검정장 이름</td>
+						<td class="line_box" width="250"><input type="text" class="input" name="sName" value="{$sName}" style="width:100%" maxlength="200"></td>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">검정장 주소</td>
+						<td class="line_box" width="250"><input type="text" class="input" name="sAddr" value="{$sAddr}" style="width:100%" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">검정장 코드</td>
+						<td class="line_box" width="250"><input type="text" class="input" name="sCode" id="sCode" value="{$sCode}" style="width:50px;" maxlength="3"></td>
+						<td class="line_box" align=center bgcolor="f0f0f0" width="140">검정장 연락처</td>
+						<td class="line_box" width="250"><input type="text" class="input" name="sTel" value="{$sTel}" style="width:100%" maxlength="50"></td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		<tr><td height="10"></td></tr>
+		<tr>
+			<td align=center colspan=2><input type="image" src="{$imgDir}/center_btn_Search.gif"></td>
+		</tr>
+
+		</form>
+		<tr>
+			<td><img src="{$imgDir}/center_sub_search_data.gif"></td>
+			<td align=right><a href="excel.area.asp?{$PageParams}">[엑셀 다운로드]</a></td>
+		</tr>
+		<tr><td height="10"></td></tr>
+
+		<form name="fm" id="fm" method="post" action="areaP.asp" enctype="multipart/form-data">
+		<input type="hidden" name="actType" id="actType" value="">
+
+		<input type="hidden" name="pageNo"   value="{$pageNo}">
+		<input type="hidden" name="sIndate"  value="{$sIndate}">
+		<input type="hidden" name="sOutdate" value="{$sOutdate}">
+		<input type="hidden" name="sName"    value="{$sName}">
+		<input type="hidden" name="sAddr"    value="{$sAddr}">
+		<input type="hidden" name="sCode"    value="{$sCode}">
+		<input type="hidden" name="sTel"     value="{$sTel}">
+		<input type="hidden" name="sPcode"   value="{$sPcode}">
+
+
+		<tr>
+			<td colspan=2>
+				<table cellpadding=0 cellspacing=0 width="100%" class="line_box_table">
+					<tr height="30" align=center bgcolor="f0f0f0">
+						<td class="line_box" width="30"><input type="checkbox" name="check_all" id="check_all"></td>
+						<td class="line_box" width="50">NO</td>
+						<td class="line_box" width="50">코드</td>
+						<td class="line_box" width="50">지역</td>
+						<td class="line_box" width="25%">검정장 이름</td>
+						<td class="line_box">주소</td>
+						<td class="line_box" width="15%">연락처</td>
+					</tr>
+					<!-- BLOCK BEGIN AREA_LOOP -->
+					<tr>
+						<td class="line_box"><input type="checkbox" name="Idx" value="{$Idx}"></td>
+						<td class="line_box" align=center>{$rownum}</td>
+						<td class="line_box" onclick="location.href='areaW.asp?idx={$Idx}&{$PageParams}';" align=center style="cursor:pointer;">{$Code}</td>
+						<td class="line_box" onclick="location.href='areaW.asp?idx={$Idx}&{$PageParams}';" align=center style="cursor:pointer;">{$AddrCode}</td>
+						<td class="line_box" onclick="location.href='areaW.asp?idx={$Idx}&{$PageParams}';" align=left style="cursor:pointer;">{$Name}</td>
+						<td class="line_box" onclick="location.href='areaW.asp?idx={$Idx}&{$PageParams}';" align=left style="cursor:pointer;">{$Addr}</td>
+						<td class="line_box" onclick="location.href='areaW.asp?idx={$Idx}&{$PageParams}';" align=center style="cursor:pointer;">{$Tel}</td>						
+					</tr>
+					<!-- BLOCK END AREA_LOOP -->
+
+					<!-- BLOCK BEGIN LOOP_NODATA -->
+					<tr>
+						<td class="line_box" align=center colspan=7>등록된 내용이 없습니다.</td>
+					</tr>
+					<!-- BLOCK END LOOP_NODATA -->
+				</table>
+
+			</td>
+		</tr>
+		
+		</form>
+
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>{$pageList}</td>
+		</tr>
+		<tr><td height="20"></td></tr>
+		<tr>
+			<td align=center colspan=2>
+				<a href="areaW.asp?{$PageParams}"><img src="{$imgDir}/center_btn_write_ok.gif"></a> &nbsp;&nbsp;
+				<a href="javascript:void(del_fm_checkbox())"><img src="{$imgDir}/center_btn_delete.gif"></a>
+			</td>
+		</tr>
+	</table>
+	
+	
+
+</div>

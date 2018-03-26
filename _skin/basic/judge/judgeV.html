@@ -1,0 +1,170 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#SubDataArea img.btn_cell_minus').click(function(){
+		cell_minus($(this))
+	})
+	$('#SubDataArea img.btn_cell_minus').click(function(){
+		cell_minus($(this))
+	})
+})
+function cell_plus(areaName){
+	var $obj = $('#'+areaName);
+	var SubDataAreaHtml = ''+
+	'<table cellpadding=0 cellspacing=0 width="100%">'+
+	'	<tr>'+
+	'		<td class="cell_view_cont" width="20%"><input type="text" class="INPUT" name="CompanyName" value="" style="width:115px;" maxlength="200"></td>'+
+	'		<td class="cell_view_cont" width="20%"><input type="text" class="INPUT" name="WorkTime" value="" style="width:115px;"  maxlength="100"></td>'+
+	'		<td class="cell_view_cont" width="15%"><input type="text" class="INPUT" name="WorkMonth" value="" style="width:80px;"  maxlength="200"></td>'+
+	'		<td class="cell_view_cont" width="35%"><input type="text" class="INPUT" name="LastPosition" value="" style="width:225px;"  maxlength="200"></td>'+
+	'		<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>'+
+	'	</tr>'+
+	'</table>';
+
+	$obj.append( eval(areaName + 'Html') );
+
+	$obj.find('img.btn_cell_minus').click(function(){
+		cell_minus($(this))
+	})
+}
+function cell_minus(areaName){
+	var $obj = areaName;
+	$obj.parents('table').remove();
+}
+
+function check(){
+	if( !$('#PhotoName').val() && !$('#oldPhotoName').val() ){
+		alert("사진을 등록해주세요.");return false;
+	}
+	$('#fm').submit()
+}
+</script>
+<!-- #include file = "../_skin/basic/judge/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/comunity/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_mypage_02.jpg"></div>
+				<div class="contPageNavi">H > 커뮤니티 > <b>심사위원POOL등록</b></div>
+			</div>
+
+			<h4 class="IconArrow">기본정보</h4>
+			<div id="board_wrap">
+			
+				<form name="fm" id="fm" method="POST" action="proc.asp" enctype="multipart/form-data">
+				<input type="hidden" name="oldPhotoName" id="oldPhotoName" value="{$Photo}">
+				<input type="hidden" name="actType" value="{$actType}">
+				<input type="hidden" name="pageNo" value="{$pageNo}">
+				<input type="hidden" name="Idx" value="{$Idx}">
+
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">성명</td>
+						<td class="cell_view_cont" >{$UserName}</td>
+						<td class="cell_view_title" width="80">아이디</td>
+						<td class="cell_view_cont cell_no_rightLine" width="300">{$UserId}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">생년월일</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>{$UserBirth}</td>
+					</tr>	
+					<tr>
+						<td class="cell_view_title">핸드폰</td>
+						<td class="cell_view_cont">{$UserPhone}</td>
+						<td class="cell_view_title">이메일</td>
+						<td class="cell_view_cont cell_no_rightLine" width="150">{$UserEmail}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">주소</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>{$UserAddr}</td>
+					</tr>	
+				</table>
+
+				<div class="btn_area">
+					<a href="../mypage/info.asp"><img src="{$imgDir}/board/btn_modify.jpg"></a>
+				</div>
+
+				<h4 class="IconArrow">추가정보</h4>
+				
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">자격종목</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>{$ProgramName}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">사진등록</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="file" id="PhotoName" name="PhotoName"> <a href="{$downlPhotos}">{$Photo}</a></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">첨부파일</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="file" id="FileName" name="FileName"> <a href="{$downlFile}">{$FileName}</a></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">진행상황</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3>{$State}</td>
+					</tr>
+					
+				</table>
+				<br><br>
+				<p class="contTxt">
+				사진등록시 필히 본인사진 등록바랍니다.<br>
+				본인 이외의 기타(풍경, 동물, 로고 등)의 사진 등록시 검정진행에 있어 본인 확인 절차시 입실이 거부될수 있으며, <br>
+				이모든 사항에 대한 책임은 본인이 감수해야 합니다.
+				</p>
+
+				<br><br>
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="20%">근무처</td>
+						<td class="cell_view_title" width="20%">근무시간</td>
+						<td class="cell_view_title" width="15%">근무개월</td>
+						<td class="cell_view_title" width="35%">최종직위(업무내용)</td>
+						<td class="cell_view_title cell_no_rightLine" width="10%"><a href="javascript:void( cell_plus('SubDataArea') );"><img src="{$imgDir}/btn_cell_plus.jpg"></a></td>
+					</tr>
+				</table>
+
+				<div id="SubDataArea" style="border-bottom:1px solid #4f4f4f;">
+				<!-- BLOCK BEGIN SUBDATA_LOOP -->
+					<table cellpadding=0 cellspacing=0 width="100%">
+						<tr>
+							<td class="cell_view_cont" width="20%"><input type="text" class="INPUT" name="CompanyName" value="{$CompanyName}" style="width:115px;" maxlength="200"></td>
+							<td class="cell_view_cont" width="20%"><input type="text" class="INPUT" name="WorkTime" value="{$WorkTime}" style="width:115px;"  maxlength="100"></td>
+							<td class="cell_view_cont" width="15%"><input type="text" class="INPUT" name="WorkMonth" value="{$WorkMonth}" style="width:80px;"  maxlength="200"></td>
+							<td class="cell_view_cont" width="35%"><input type="text" class="INPUT" name="LastPosition" value="{$LastPosition}" style="width:225px;"  maxlength="200"></td>
+							<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>
+						</tr>
+					</table>
+				<!-- BLOCK END SUBDATA_LOOP -->
+				<!-- BLOCK BEGIN SUBDATA_LOOP_NODATA -->
+					<table cellpadding=0 cellspacing=0 width="100%">
+						<tr>
+							<td class="cell_view_cont" width="20%"><input type="text" class="INPUT" name="CompanyName" value="" style="width:115px;" maxlength="200"></td>
+							<td class="cell_view_cont" width="20%"><input type="text" class="INPUT" name="WorkTime" value="" style="width:115px;"  maxlength="100"></td>
+							<td class="cell_view_cont" width="15%"><input type="text" class="INPUT" name="WorkMonth" value="" style="width:80px;"  maxlength="200"></td>
+							<td class="cell_view_cont" width="35%"><input type="text" class="INPUT" name="LastPosition" value="" style="width:225px;"  maxlength="200"></td>
+							<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>
+						</tr>
+					</table>
+				<!-- BLOCK END SUBDATA_LOOP_NODATA -->
+				</div>
+
+
+				</form>
+
+				<div class="btn_area">
+				<!-- BLOCK BEGIN BOARD_BTN_WRITE -->
+					<a href="javascript:void(check());"><img src="{$imgDir}/btn_cell_save.jpg"></a>
+				<!-- BLOCK END BOARD_BTN_WRITE -->
+				</div>
+
+			</div>		
+
+
+
+		</div>
+	</div>
+</div>

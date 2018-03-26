@@ -1,0 +1,110 @@
+<script type="text/javascript">
+function check(){
+	if( !trim( $('#CodeIdx').val() ) ){
+		alert('프로그램을 선택하세요.');return false;
+	}
+
+	if( !trim( $('#Name').val() ) ){
+		alert('검정장 이름을 입력하세요.');return false;
+	}
+
+	if( !trim( $('#AddrIdx').val() ) ){
+		alert('지역을 선택하세요.');return false;
+	}
+	if( !trim( $('#Addr').val() ) ){
+		alert('검정장 주소를 입력하세요.');return false;
+	}
+	if( !trim( $('#Tel').val() ) ){
+		alert('검정장 연락처를 입력하세요.');return false;
+	}
+	if( !trim($('#Info').val()) ){
+		alert('검정장 안내를 작성해주세요.');return false;
+	}
+
+	if( !trim($('#FileName').val()) ){
+		alert('검정장 약도를 등록해주세요.');return false;
+	}
+
+	$('#fm').submit();
+}
+</script>
+<!-- #include file = "../_skin/basic/map/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/map/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_area_01.jpg"></div>
+				<div class="contPageNavi">H > 검정장등록 및 조회 > <b>검정장 등록</b></div>
+			</div>
+
+			<h4 class="IconArrow">검정장 등록</h4>
+
+			<div id="board_wrap">
+				
+				<form name="fm" id="fm" method="POST" action="proc.asp" enctype="multipart/form-data">
+				<input type="hidden" name="Idx" value="{$Idx}">
+				<input type="hidden" name="oldFileName" value="{$Map}">
+				<input type="hidden" name="actType" value="{$actType}">
+				<input type="hidden" name="pageNo" value="{$pageNo}">
+				<input type="hidden" name="sPcode" value="{$sPcode}">
+				<input type="hidden" name="sACode" value="{$sACode}">
+
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width=80>프로그램</td>
+						<td class="cell_view_cont cell_no_rightLine"><select id="CodeIdx" name="CodeIdx">{$codeOption}</option></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title" width=80>이름</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="text" class="INPUT" style="width:600px;" id="Name" name="Name" value="{$Name}" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">주소</td>
+						<td class="cell_view_cont cell_no_rightLine">
+							<select id="AddrIdx" name="AddrIdx" style="width:95px;">{$addrOption}</select>
+							<input type="text" class="INPUT" style="width:500px;" id="Addr" name="Addr" value="{$Addr}" maxlength="200">
+						</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">연락처</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="text" class="INPUT" style="width:600px;" id="Tel" name="Tel" value="{$Tel}" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">안내</td>
+						<td class="cell_view_cont cell_no_rightLine" valign=top>
+							<textarea style="width:600px;height:170px;" id="Info" name="Info">{$Info}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">웹URL</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="text" class="INPUT" style="width:600px;" id="WebAddr" name="WebAddr" value="{$WebAddr}" maxlength="800"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">약도파일</td>
+						<td class="cell_view_cont cell_no_rightLine">
+							<input type="file" class="INPUT" id="FileName" name="FileName">
+							<!-- BLOCK BEGIN HIDDEN_DATA_FILE -->
+							<a href="{$downloadUrl}">{$File}</a>
+							<input type="checkbox" value="1" name="DellFileFg"> 기존파일 삭제
+							<!-- BLOCK END HIDDEN_DATA_FILE -->
+						</td>
+					</tr>
+				</table>
+
+				</form>
+
+				<div class="btn_area">
+					<a href="index.asp?{$PageParams}&Idx={$Idx}&actType=MODIFY"><img src="{$imgDir}/board/btn_list.jpg" align=left></a>
+					<a href="javascript:void(check());"><img src="{$imgDir}/board/btn_write.jpg"></a>
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+@charset "utf-8";
+html,body{height:100%;}
+body,form{margin:0px;color:#3c3c3c;font-family:"dotum";font-size:12px;}
+img{border:0;}
+tr,td,p{padding:0px; margin:0px;text-decoration:none;font-size:9pt;}
+
+a:link{color:#3c3c3c;text-decoration:none}
+a:visited{color:#3c3c3c;text-decoration:none}
+a:active{color:#3c3c3c;text-decoration:none}
+a:hover{color:#3c3c3c;text-decoration:none}
+
+input[type="checkbox"],input[type="radio"]{
+	width:13px;height:13px;vertical-align:middle;
+}
+
+.ZIP_POP{overflow-y:auto;width:400px;height:350px;position:absolute;background-color:#ffffff;border:1px solid #d9d9d9;padding:0px 0px 10px 0px;}
+
+/* 전체 레이어 / 로딩 팝업 */
+.wall{position:absolute;background-color:#FFFFFF;left:0px;top:0px;width:100%;opacity:0.4;}
+.pop_box{border:5px solid #959595;position:absolute;top:0;background-color:#FFFFFF;}
+.pop_box .close{text-align:right;margin-top:10px;margin-right:10px;margin-bottom:5px;}

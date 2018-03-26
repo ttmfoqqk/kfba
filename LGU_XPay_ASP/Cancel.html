@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>LG유플러스 전자결제 결제취소 샘플 페이지</title>
+</head>
+<body>
+    <form method="post" id="LGD_PAYINFO" action="Cancel.asp">
+    <div>
+        <table>	
+            <tr>
+                <td>상점아이디(t를 제외한 아이디) </td>
+                <td><input type="text" name="CST_MID" value=""/></td>
+            </tr>
+            <tr>
+                <td>서비스,테스트 </td>
+                <td>
+                	<select name="CST_PLATFORM">
+                		<option value = "test">테스트</option>
+                		<option value = "service">서비스</option>
+                	</select>
+                </td>
+            </tr>
+            <tr>
+                <td>LG유플러스 거래번호 </td>
+                <td><input type="text" name="LGD_TID" value=""/></td>
+            </tr>
+            <tr>
+                <td>취소사유 </td>
+                <td><input type="text" name="LGD_CANCELREASON" value=""/></td>
+            </tr>
+            <tr>
+                <td>취소요청자 </td>
+                <td><input type="text" name="LGD_CANCELREQUESTER" value=""/></td>
+            </tr>
+            <tr>
+                <td>취소요청IP </td>
+                <td><input type="text" name="LGD_CANCELREQUESTERIP" value=""/></td>
+            </tr>
+            <tr>
+                <td>
+                <input type="submit" value="결제 취소"/><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

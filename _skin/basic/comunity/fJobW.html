@@ -1,0 +1,212 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#careerArea img.btn_cell_minus').click(function(){
+		cell_minus($(this))
+	})
+	$('#qualifyArea img.btn_cell_minus').click(function(){
+		cell_minus($(this))
+	})
+})
+
+function cell_plus(areaName){
+	var $obj = $('#'+areaName);
+	var careerAreaHtml = ''+
+	'<table cellpadding=0 cellspacing=0 width="100%">'+
+	'	<tr>'+
+	'		<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerName" value="" style="width:190px;" maxlength="200"></td>'+
+	'		<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerMonth" value="" style="width:190px;" maxlength="100"></td>'+
+	'		<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerPosition" value="" style="width:190px;" maxlength="200"></td>'+
+	'		<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>'+
+	'	</tr>'+
+	'</table>';
+
+	var qualifyAreaHtml = ''+
+	'<table cellpadding=0 cellspacing=0 width="100%">'+
+	'	<tr>'+
+	'		<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyName" value="" style="width:190px;" maxlength="200"></td>'+
+	'		<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyDate" value="" style="width:190px;" maxlength="100"></td>'+
+	'		<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyPublish" value="" style="width:190px;" maxlength="200"></td>'+
+	'		<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>'+
+	'	</tr>'+
+	'</table>';
+
+	$obj.append( eval(areaName + 'Html') );
+
+	$obj.find('img.btn_cell_minus').click(function(){
+		cell_minus($(this))
+	})
+}
+function cell_minus(areaName){
+	var $obj = areaName;
+	$obj.parents('table').remove();
+}
+
+
+function check(){
+	if( !trim($('#WorkArea').val()) ){
+		alert('근무희망 지역을 작성해주세요.');return false;
+	}
+	if( !trim($('#Pay').val()) ){
+		alert('희망급여를 작성해주세요.');return false;
+	}
+	$('#fm').submit()
+}
+</script>
+<!-- #include file = "../_skin/basic/comunity/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/comunity/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_comunity_05.jpg"></div>
+				<div class="contPageNavi">H > 커뮤니티 > <b>개발원 자격 취득자</b></div>
+			</div>
+
+			<h4 class="IconArrow">개발원 자격 취득자</h4>
+
+			<div id="board_wrap">
+				
+				<form name="fm" id="fm" method="POST" action="fJobP.asp" enctype="multipart/form-data">
+				<input type="hidden" name="oldFileName" value="{$File}">
+				<input type="hidden" name="oldPhotoName" value="{$Photo}">
+				<input type="hidden" name="Idx" value="{$Idx}">
+				<input type="hidden" name="actType" value="{$actType}">
+				
+				<input type="hidden" name="pageNo" value="{$pageNo}">
+				<input type="hidden" name="sName" value="{$sName}">
+				<input type="hidden" name="sId" value="{$sId}">
+				<input type="hidden" name="sTitle" value="{$sTitle}">
+				<input type="hidden" name="sContant" value="{$sContant}">
+				<input type="hidden" name="sWord" value="{$sWord}">
+
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" style="width:20%;">이름</td>
+						<td class="cell_view_cont" style="width:30%;">{$UserName}</td>
+						<td class="cell_view_title" style="width:20%;">생년월일</td>
+						<td class="cell_view_cont cell_no_rightLine" style="width:30%;">{$UserBirth}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">연락처</td>
+						<td class="cell_view_cont">{$UserPhone}</td>
+						<td class="cell_view_title">이메일</td>
+						<td class="cell_view_cont cell_no_rightLine">{$UserEmail}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">직종</td>
+						<td class="cell_view_cont"><select id="Form" name="Form">{$FormOption}</select></td>
+						<td class="cell_view_title">고용형태</td>
+						<td class="cell_view_cont cell_no_rightLine"><select id="Kind" name="Kind">{$KindOption}</select></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">근무희망 지역</td>
+						<td class="cell_view_cont"><input type="text" class="INPUT" name="WorkArea" id="WorkArea" value="{$WorkArea}" style="width:200px;" maxlength="200"></td>
+						<td class="cell_view_title">희망급여</td>
+						<td class="cell_view_cont cell_no_rightLine"><input type="text" class="INPUT" name="Pay" id="Pay" value="{$Pay}" style="width:200px;" maxlength="200"></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">학력사항</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="text" class="INPUT" name="School" id="School" value="{$School}" style="width:600px;" maxlength="200"></td>
+					</tr>					
+					
+					<tr>
+						<td class="cell_view_title">비고</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3 style="height:100px;" valign=top>
+							<textarea id="Bigo" name="Bigo" style="width:600px;height:180px;">{$Bigo}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">사진</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="file" class="INPUT" id="PhotoName" name="PhotoName"> <a href="{$downlPhotos}">{$Photo}</a></td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">첨부자료</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=3><input type="file" class="INPUT" id="FileName" name="FileName"> <a href="{$downloadUrl}">{$File}</a></td>
+					</tr>
+				</table>
+
+				<h4 class="IconArrow">경력사항</h4>
+				
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="30%">근무처</td>
+						<td class="cell_view_title" width="30%">근무개월</td>
+						<td class="cell_view_title" width="30%">최종직위</td>
+						<td class="cell_view_title cell_no_rightLine" width="10%"><a href="javascript:void( cell_plus('careerArea') );"><img src="{$imgDir}/btn_cell_plus.jpg"></a></td>
+					</tr>
+				</table>
+
+				<div id="careerArea" style="border-bottom:1px solid #4f4f4f;">
+				<!-- BLOCK BEGIN CAREER_LOOP -->
+					<table cellpadding=0 cellspacing=0 width="100%">
+						<tr>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerName" value="{$Name}" style="width:190px;" maxlength="200"></td>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerMonth" value="{$WorkMonth}" style="width:190px;"  maxlength="100"></td>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerPosition" value="{$LastPosition}" style="width:190px;"  maxlength="200"></td>
+							<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>
+						</tr>
+					</table>
+				<!-- BLOCK END CAREER_LOOP -->
+				<!-- BLOCK BEGIN CAREER_LOOP_NODATA -->
+					<table cellpadding=0 cellspacing=0 width="100%">
+						<tr>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerName" value="" style="width:190px;"  maxlength="200"></td>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerMonth" value="" style="width:190px;"  maxlength="100"></td>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="careerPosition" value="" style="width:190px;"  maxlength="200"></td>
+							<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>
+						</tr>
+					</table>
+				<!-- BLOCK END CAREER_LOOP_NODATA -->
+				</div>
+
+				<h4 class="IconArrow">자격증</h4>
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="30%">자격명</td>
+						<td class="cell_view_title" width="30%">취득일자</td>
+						<td class="cell_view_title" width="30%">발행처</td>
+						<td class="cell_view_title cell_no_rightLine" width="10%"><a href="javascript:void( cell_plus('qualifyArea') );"><img src="{$imgDir}/btn_cell_plus.jpg"></a></td>
+					</tr>
+				</table>
+				<div id="qualifyArea" style="border-bottom:1px solid #4f4f4f;">
+				<!-- BLOCK BEGIN QUALIFY_LOOP -->
+					<table cellpadding=0 cellspacing=0 width="100%">
+						<tr>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyName" value="{$Name}" style="width:190px;" maxlength="200"></td>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyDate" value="{$Tdate}" style="width:190px;" maxlength="100"></td>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyPublish" value="{$Publish}" style="width:190px;" maxlength="200"></td>
+							<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>
+						</tr>
+					</table>
+				<!-- BLOCK END QUALIFY_LOOP -->
+				<!-- BLOCK BEGIN QUALIFY_LOOP_NODATA -->
+					<table cellpadding=0 cellspacing=0 width="100%">
+						<tr>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyName" value="" style="width:190px;" maxlength="200"></td>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyDate" value="" style="width:190px;" maxlength="200"></td>
+							<td class="cell_view_cont" width="30%"><input type="text" class="INPUT" name="qualifyPublish" value="" style="width:190px;" maxlength="200"></td>
+							<td class="cell_view_cont cell_no_rightLine" width="10%" align=center><img src="{$imgDir}/btn_cell_minus.jpg" class="btn_cell_minus" style="cursor:pointer;"></td>
+						</tr>
+					</table>
+				<!-- BLOCK END QUALIFY_LOOP_NODATA -->
+				</div>
+
+				</form>
+
+				<div class="btn_area">
+					<a href="fJobL.asp?{$PageParams}"><img src="{$imgDir}/board/btn_list.jpg" align=left></a>
+				<!-- BLOCK BEGIN BOARD_BTN_WRITE -->
+					<a href="javascript:void(check());"><img src="{$imgDir}/board/btn_write.jpg"></a>
+				<!-- BLOCK END BOARD_BTN_WRITE -->
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

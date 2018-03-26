@@ -1,0 +1,15 @@
+<div class="center_leftMenu_wrap">
+	<div class="Admin_left">
+	<div class="leftTitle">프로그램관리</div>
+	<ul>
+		<li class="{$leftMenuOverClass1}"><a href="programsL.asp">검정 관리</a></li>
+		<!-- BLOCK BEGIN LEFT_MENU_LIST1 -->
+		<li class="sub_menu {$leftMenuOverClass}" style="position:relative;top:0px;left:0px;height:35px;"><a href="programsL.asp?sPcode={$Idx}">{$Name}</a><span style="font-size:11px;position:absolute;top:0px;right:0px;">[과목코드:{$sKey}]</span></li>
+		<!-- BLOCK END LEFT_MENU_LIST1 -->
+		<li class="{$leftMenuOverClass2}"><a href="areaL.asp">검정장 관리</a></li>
+		<!-- BLOCK BEGIN LEFT_MENU_LIST2 -->
+		<li class="sub_menu {$leftMenuOverClass}"><a href="areaL.asp?sPcode={$Idx}">{$Name}</a></li>
+		<!-- BLOCK END LEFT_MENU_LIST2 -->
+	</ul>
+	</div>
+</div>

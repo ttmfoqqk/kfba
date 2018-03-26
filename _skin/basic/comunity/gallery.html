@@ -1,0 +1,77 @@
+<script type="text/javascript">
+function deleteCheck(){
+	if( confirm('삭제 하시겠습니까?') ){
+		$('#actType').val('DELETE');
+		$('#fm').submit();
+	}
+}
+</script>
+
+<form name="fm" id="fm" action="proc.asp" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="Idx" id="Idx" value="{$Idx}">
+	<input type="hidden" name="actType" id="actType" value="">
+	<input type="hidden" name="BoardKey" value="{$BoardKey}">
+	<input type="hidden" name="pageNo" value="{$pageNo}">
+	<input type="hidden" name="sName" value="{$sName}">
+	<input type="hidden" name="sId" value="{$sId}">
+	<input type="hidden" name="sTitle" value="{$sTitle}">
+	<input type="hidden" name="sContant" value="{$sContant}">
+	<input type="hidden" name="sWord" value="{$sWord}">
+</form>
+
+<!-- #include file = "../_skin/basic/comunity/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/comunity/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_comunity_0{$BoardKey}.jpg"></div>
+				<div class="contPageNavi">H > 커뮤니티 > <b>{$BoardName}</b></div>
+			</div>
+
+			<h4 class="IconArrow">{$BoardName}</h4>
+
+			<div id="board_wrap">
+
+				<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+					<tr>
+						<td class="cell_view_title" width="80">작성자</td>
+						<td class="cell_view_cont" width="150">{$Name}</td>
+						<td class="cell_view_title" width="80">등록일</td>
+						<td class="cell_view_cont" width="150">{$Indate}</td>
+						<td class="cell_view_title" width="80">조회수</td>
+						<td class="cell_view_cont cell_no_rightLine">{$RCnt}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">제목</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=5>{$Title}</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">내용</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=5 style="height:100px;" valign=top>
+							{$Photos}
+							{$Contants}
+						</td>
+					</tr>
+					<tr>
+						<td class="cell_view_title">첨부파일</td>
+						<td class="cell_view_cont cell_no_rightLine" colspan=5><a href="{$downloadUrl}">{$File}</a></td>
+					</tr>
+				</table>
+
+				<div class="btn_area">
+					<a href="index.asp?{$PageParams}"><img src="{$imgDir}/board/btn_list.jpg" align=left></a>
+				<!-- BLOCK BEGIN BOARD_BTN_WRITE -->
+					<a href="write.asp?{$PageParams}&Idx={$Idx}&actType=MODIFY"><img src="{$imgDir}/board/btn_modify.jpg"></a>
+					<a href="javascript:void( deleteCheck() )"><img src="{$imgDir}/board/btn_Delete.jpg"></a>
+				<!-- BLOCK END BOARD_BTN_WRITE -->
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+</div>

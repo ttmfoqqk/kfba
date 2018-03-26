@@ -1,0 +1,196 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#UserEmail1').keyup(function(e){
+		CheckSpace_alert($(this),'email');
+	});
+	$('#UserEmail3').keyup(function(e){
+		CheckSpace_alert($(this),'email');
+	});
+
+	$('#UserPhone1').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	$('#UserPhone2').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	$('#UserPhone3').keyup(function(e){
+		CheckSpace_alert($(this),'number');
+	});
+	/*
+	$('#UserZip1').focus(function(e){
+		zipAddrSearch('UserZip1','UserZip2','UserAddr1','UserAddr2')
+	});
+	$('#UserZip2').focus(function(e){
+		zipAddrSearch('UserZip1','UserZip2','UserAddr1','UserAddr2')
+	});
+	$('#UserAddr1').focus(function(e){
+		zipAddrSearch('UserZip1','UserZip2','UserAddr1','UserAddr2')
+	});
+	*/
+
+
+	$('#emailWrite').click(function(){
+		changeEmailInput();
+	});
+	$('#UserEmail2').change(function(){
+		$('#UserEmail3').val( $(this).val() );
+	});
+
+	$('#LastName').keyup(function(e){
+		CheckSpace_alert($(this),'id');
+	});
+
+	$('#FirstName').keyup(function(e){
+		CheckSpace_alert($(this),'id');
+	});
+})
+
+function changeEmailInput(){
+	if( $('#emailWrite').is(":checked") ){
+		$('#UserEmail2').hide();
+		$('#UserEmail3').show();
+	}else{
+		$('#UserEmail2').show();
+		$('#UserEmail3').hide();
+	}
+}
+
+function check(){
+	if( !trim($('#LastName').val()) ){
+		alert('영문(성)을 입력하세요.');return false;
+	}
+	if( !trim($('#FirstName').val()) ){
+		alert('영문(이름)을 입력하세요.');return false;
+	}
+	if( CheckSpace($('#LastName').val(),'id') ){
+		alert("영문(성)은 한글 또는 특수문자를 입력할수 없습니다.");return false;
+	}
+	if( CheckSpace($('#FirstName').val(),'id') ){
+		alert("영문(이름)은 한글 또는 특수문자를 입력할수 없습니다.");return false;
+	}
+/*
+	if( !trim( $('#UserZip1').val() ) || !trim( $('#UserZip2').val() ) || !trim( $('#UserAddr1').val() ) ){
+		alert("주소를 입력하세요.");return false;
+	}
+	if( !trim( $('#UserAddr2').val() )){
+		alert("상세주소를 입력하세요.");return false;
+	}
+*/
+	if( !$('#UserPhone1').val() || !trim( $('#UserPhone2').val() ) || !trim( $('#UserPhone3').val() ) ){
+		alert("휴대폰 번호를 입력하세요.");return false;
+	}
+	if( CheckSpace($('#UserPhone1').val(),'number') || CheckSpace($('#UserPhone2').val(),'number') || CheckSpace($('#UserPhone3').val(),'number') ){
+		alert("휴대폰 번호는 특수문자를 입력할수 없습니다.");return false;
+	}
+
+	if( !trim($('#UserEmail1').val()) || !trim($('#UserEmail3').val()) ){
+		alert("이메일을 입력하세요.");return false;
+	}
+	if( !check_email( trim($('#UserEmail1').val()) +'@' + trim($('#UserEmail3').val()) ) ){
+		alert("유효한 이메일 형식이 아닙니다.");return false;
+	}
+	$('#fm').submit();
+}
+</script>
+<!-- #include file = "../_skin/basic/mypage/sub_visual.html" -->
+<div class="center_contantsArea">
+	<!-- #include file = "../_skin/basic/mypage/leftMenu.html" -->
+
+	<div id="centerPageContants_wrap">
+		<div class="centerPageContantsBox">
+		
+			<div class="contTitleArea">
+				<div class="contPageTitle"><img src="{$imgDir}/centerTitle_mypage_04.jpg"></div>
+				<div class="contPageNavi">H > 마이페이지 > <b>회원정보수정</b></div>
+			</div>
+
+			<h4 class="IconArrow">기본정보입력</h4>
+
+			<form name="fm" id="fm" method="POST" action="../member/memberP.asp">
+			<input type="hidden" name="actType" id="actType" value="{$actType}">
+
+			
+			<table cellpadding=0 cellspacing=0 width="100%" class="table_wrap">
+				<tr>
+					<td class="data_cell01">아이디</td>
+					<td class="data_cell02" colspan="3">{$UserId}</td>
+				</tr>
+				<tr>
+					<td class="data_cell01">영문(성)</td>
+					<td class="data_cell02" style="width:170px;"><input type="text" class="INPUT" id="LastName" name="LastName" value="{$LastName}" style="ime-mode:disabled;" maxlength="50"></td>
+					<td class="data_cell01">영문(이름)</td>
+					<td class="data_cell02"><input type="text" class="INPUT" id="FirstName" name="FirstName" value="{$FirstName}" style="ime-mode:disabled;" maxlength="50"></td>
+				</tr>
+				<!--<tr>
+					<td class="data_cell01">주소</td>
+					<td class="data_cell02" colspan="3">
+						<table cellpadding=0 cellspacing=0>
+							<tr>
+								<td><input type="text"class="INPUT" size="4" maxlength="3" id="UserZip1" name="UserZip1" value="{$UserZip1}" readonly onclick="openDaumPostcode()"> -&nbsp;</td>
+								<td><input type="text"class="INPUT" size="4" maxlength="3" id="UserZip2" name="UserZip2" value="{$UserZip2}" readonly onclick="openDaumPostcode()">&nbsp;</td>
+								<td><img src="{$imgDir}/btn_search_post.jpg" style="cursor:pointer" onclick="openDaumPostcode()" align=absmiddle></td>
+							</tr>
+						</table><br>
+						<input type="text"class="INPUT" size="45" maxlength="200" id="UserAddr1" name="UserAddr1" value="{$UserAddr1}" readonly>
+						<input type="text"class="INPUT" size="32" maxlength="200" id="UserAddr2" name="UserAddr2" value="{$UserAddr2}" >
+						
+						
+					</td>
+				</tr>-->
+				<tr>
+					<td class="data_cell01">핸드폰</td>
+					<td class="data_cell02" colspan="3">
+						<select id="UserPhone1" name="UserPhone1">{$hphoneOption}</select> - 
+						<input type="text"class="INPUT" size="5" maxlength="4" id="UserPhone2" name="UserPhone2" value="{$UserPhone2}"> - 
+						<input type="text"class="INPUT" size="5" maxlength="4" id="UserPhone3" name="UserPhone3" value="{$UserPhone3}">
+					</td>
+				</tr>
+				<tr>
+					<td class="data_cell01">이메일</td>
+					<td class="data_cell02" colspan="3">
+						<input type="text" class="INPUT" maxlength="120" id="UserEmail1" name="UserEmail1" value="{$UserEmail1}" style="width:120px;ime-mode:disabled;text-transform:lowercase;"> @
+						<input type="text" class="INPUT" maxlength="80"  id="UserEmail3" name="UserEmail3" value="{$UserEmail2}" style="width:130px;ime-mode:disabled;text-transform:lowercase;">
+						<select id="UserEmail2" name="UserEmail2" style="width:138px;">{$mailOption}</select>
+						<!--input type="checkbox" id="emailWrite"> <label for="emailWrite">직접입력</label><br-->
+						
+						<input type="checkbox" id="UserEmailfg" name="UserEmailfg" value="1"> <span class="joinTxtBlue"><label for="UserEmailfg">소식을 받아보겠습니다.</label></span>
+
+						<!--span class="joinTxtBlue">
+						비밀번호 분실시 이메일로 임시 비밀번호가 발송됩니다.<br>
+						이메일을 정확하게 입력해주세요
+						</span-->
+					</td>
+				</tr>
+			</table>
+
+			</form>
+			<br><br>
+			
+			<center><a href="javascript:void(check());" class="btnRedBox">수정</a></center>
+
+		</div>
+	</div>
+</div>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
+<script>
+    function openDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                // 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
+                document.getElementById('UserZip1').value = data.postcode1;
+                document.getElementById('UserZip2').value = data.postcode2;
+               // document.getElementById('UserAddr1').value = data.address;
+
+                //전체 주소에서 연결 번지 및 ()로 묶여 있는 부가정보를 제거하고자 할 경우,
+                //아래와 같은 정규식을 사용해도 된다. 정규식은 개발자의 목적에 맞게 수정해서 사용 가능하다.
+                var addr = data.address.replace(/(\s|^)\(.+\)$|\S+~\S+/g, '');
+                //document.getElementById('addr').value = addr;
+				document.getElementById('UserAddr1').value = addr;
+
+                document.getElementById('UserAddr2').focus();
+            }
+        }).open();
+    }
+</script>

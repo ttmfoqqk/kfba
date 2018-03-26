@@ -1,0 +1,1 @@
+<%Response.redirect "login.asp"%>
